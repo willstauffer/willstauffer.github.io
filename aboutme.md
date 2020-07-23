@@ -1,16 +1,9 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle:
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+Will Stauffer-Norris was born in Idaho, grew up in Virginia, and graduated from Colorado College in 2011 with an Environmental Science degree. Will has paddled and filmed on rivers all over the world. 
 
-- I rock a great mustache
-- I'm extremely loyal to my family
-
-What else do you need?
-
-### my history
-
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+He combines his passions for wild rivers, visual art, and adventure to document some of the planet's most remote and beautiful places. Will’s work is in film festivals like Banff and 5Point, has been awarded a Vimeo Staff Pick, and appeared the pages of National Geographic Magazine.
