@@ -1,0 +1,419 @@
+[
+  {
+    "id": "entelligent",
+    "area": "usa",
+    "location": "Boulder, Colorado",
+    "region": "Entelligent · Company headquarters",
+    "coords": [
+      -105.27,
+      40.02
+    ],
+    "category": "Data science + AI workflows",
+    "title": "Climate modeling, with AI in the loop",
+    "description": "I direct parallel agents, explore tradeoffs, and check what changes in the scores. Tests and before-and-after plots decide whether the work holds up.",
+    "status": "Entelligent · October 2025–present",
+    "media": [],
+    "links": [
+      {
+        "label": "Read Entelligent’s scenario report",
+        "url": "https://www.entelligent.com/wp-content/uploads/2025/06/Entelligent-Case-Study-European-Industrial-Co-Transition-Disclosure-Report-20250617-1.pdf#page=14"
+      }
+    ],
+    "date": "2025–now",
+    "detail": "ai",
+    "benchmark": {
+      "before": 14.6,
+      "after": 2.2,
+      "unit": "seconds",
+      "date": "July 2026"
+    },
+    "publishedScenario": {
+      "years": {
+        "2025": {
+          "ndc": 15,
+          "netZero": 36
+        },
+        "2030": {
+          "ndc": 129,
+          "netZero": 290
+        },
+        "2045": {
+          "ndc": 343,
+          "netZero": 542
+        }
+      },
+      "source": "https://www.entelligent.com/wp-content/uploads/2025/06/Entelligent-Case-Study-European-Industrial-Co-Transition-Disclosure-Report-20250617-1.pdf",
+      "figure": 10,
+      "page": 14
+    }
+  },
+  {
+    "id": "singapore",
+    "area": "asia",
+    "location": "Singapore",
+    "region": "AMRO · ASEAN+3",
+    "coords": [
+      103.85,
+      1.3
+    ],
+    "category": "Data science + climate risk",
+    "title": "Climate-related credit risk",
+    "description": "Developed SAFE for AMRO at Entelligent, modeling climate-related credit risk across 30,000+ public companies.",
+    "status": "Entelligent · October 2025–present",
+    "media": [],
+    "links": [],
+    "date": "2025–now"
+  },
+  {
+    "id": "cdr",
+    "area": "global",
+    "location": "Global",
+    "region": "CDR.fyi",
+    "coords": null,
+    "category": "Forecasting + carbon removal",
+    "title": "How much carbon can we remove?",
+    "description": "Forecasting durable carbon removal deployment and what it could mean for climate targets.",
+    "status": "Data science consulting · 2024",
+    "media": [],
+    "links": [
+      {
+        "label": "Explore CDR.fyi",
+        "url": "https://www.cdr.fyi/"
+      }
+    ],
+    "date": "2024"
+  },
+  {
+    "id": "columbia",
+    "area": "usa",
+    "location": "Columbia River",
+    "region": "Hood River, Oregon",
+    "coords": [
+      -121.52,
+      45.71
+    ],
+    "category": "Data visualization + water",
+    "title": "Irrigation modernization",
+    "description": "Tableau visualizations of conservation projects over time, helping Oregon legislators understand irrigation modernization funding.",
+    "status": "Farmers Conservation Alliance · 2024–2025",
+    "media": [],
+    "links": [
+      {
+        "label": "Farmers Conservation Alliance",
+        "url": "https://fcasolutions.org/"
+      }
+    ],
+    "date": "2024–25"
+  },
+  {
+    "id": "un",
+    "area": "usa",
+    "location": "UN headquarters",
+    "region": "New York City",
+    "coords": [
+      -73.9675,
+      40.749
+    ],
+    "category": "Climate scenarios + reporting",
+    "title": "A pension fund meets climate risk",
+    "description": "Climate scenario analysis and figures for the UN Joint Staff Pension Fund’s first TCFD report, through Entelligent.",
+    "status": "Published report · 2021 reporting year",
+    "media": [
+      "divestment",
+      "scenarios",
+      "enroads"
+    ],
+    "links": [
+      {
+        "label": "Read the TCFD report",
+        "url": "https://www.unjspf.org/wp-content/uploads/2022/06/UNJSPF_Report_March8.pdf"
+      }
+    ],
+    "date": "2021"
+  },
+  {
+    "id": "scores",
+    "area": "usa",
+    "location": "Boulder, Colorado",
+    "region": "Entelligent · Company headquarters",
+    "coords": [
+      -105.27,
+      40.02
+    ],
+    "category": "Climate risk + data engineering",
+    "title": "Climate scores, backtested",
+    "description": "E-Score and T-Risk models for climate-aware investing. Built and migrated the portfolio backtesting pipeline to dbt and Snowflake.",
+    "status": "Entelligent · 2020–2023",
+    "date": "2020–23",
+    "media": [
+      "backtest"
+    ],
+    "links": [
+      {
+        "label": "Published E-Score research",
+        "url": "https://www.entelligent.com/wp-content/uploads/2021/04/Energy-Climate-Transition-Risk-for-Equities.pdf#page=8"
+      },
+      {
+        "label": "T-Risk on FactSet",
+        "url": "https://www.entelligent.com/news-and-perspective/entelligents-t-risk-goes-live-on-factset-to-support-institutional-investors-worldwide/"
+      }
+    ]
+  },
+  {
+    "id": "paris",
+    "area": "europe",
+    "location": "Paris",
+    "region": "Société Générale · Partner headquarters",
+    "coords": [
+      2.35,
+      48.86
+    ],
+    "category": "Climate risk + financial modeling",
+    "title": "Climate-aware portfolios",
+    "description": "Built climate-risk models, analyzed portfolios, and explained the results to financial institutions including Société Générale.",
+    "status": "Entelligent · 2020–2023",
+    "media": [
+      "energy-returns"
+    ],
+    "links": [
+      {
+        "label": "Read Entelligent’s energy-transition research",
+        "url": "https://www.entelligent.com/wp-content/uploads/2021/04/Energy-Climate-Transition-Risk-for-Equities.pdf#page=7"
+      }
+    ],
+    "date": "2020–23"
+  },
+  {
+    "id": "idaho",
+    "area": "usa",
+    "location": "South Fork Payette",
+    "region": "Idaho",
+    "coords": [
+      -115.62,
+      44.08
+    ],
+    "category": "Machine learning + river flow",
+    "title": "rivers.fyi",
+    "description": "Live river forecasts using an LSTM neural network, USGS and NOAA data, and more than 30 years of records.",
+    "status": "TensorFlow · Time series · 2020",
+    "media": [
+      "rivers_fyi"
+    ],
+    "links": [
+      {
+        "label": "Read the river forecast story",
+        "url": "https://medium.com/data-science/predicting-the-flow-of-the-south-fork-payette-river-using-an-lstm-neural-network-65292eadf6a6"
+      }
+    ],
+    "date": "2020"
+  },
+  {
+    "id": "permits",
+    "area": "global",
+    "location": "River permits",
+    "region": "Recreation.gov",
+    "coords": null,
+    "category": "Automation + outdoor access",
+    "title": "Catch a cancellation",
+    "description": "A river-permit checker that watches for cancellations and sends a text when a spot opens. Less refreshing, more time on the water.",
+    "status": "Python · Twilio · JavaScript · 2020",
+    "date": "2020",
+    "media": [],
+    "links": []
+  },
+  {
+    "id": "taylor",
+    "area": "usa",
+    "location": "Big Creek, Idaho",
+    "region": "Taylor Wilderness Research Station",
+    "coords": [
+      -114.8517,
+      45.1019
+    ],
+    "category": "Field research + watershed ecology",
+    "title": "Fire, wood, and a wilderness river",
+    "description": "Undergraduate field research on how fire intensity affects the distribution of large woody debris in Idaho’s Big Creek watershed.",
+    "status": "Taylor Wilderness Research Station · 2010",
+    "date": "2010",
+    "media": [],
+    "links": [
+      {
+        "label": "Research listing in the 2010 annual report",
+        "url": "https://objects.lib.uidaho.edu/taylorarchive/b3-TWRS_PositionReports-076.pdf#page=10"
+      }
+    ]
+  },
+  {
+    "id": "colombia",
+    "area": "south-america",
+    "location": "Colombia",
+    "region": "Chiribiquete · Colombian Amazon",
+    "coords": [
+      -72.7972,
+      0.52528
+    ],
+    "category": "Film + packrafting",
+    "title": "Packrafting Colombia",
+    "description": "A packrafting expedition through the Colombian Amazon, in the Serranía de Chiribiquete region.",
+    "status": "Personal film · 2020",
+    "media": [],
+    "links": [
+      {
+        "label": "Watch Packrafting Colombia",
+        "url": "https://www.youtube.com/watch?v=pGxXibheOpw"
+      }
+    ],
+    "video": {
+      "provider": "youtube",
+      "id": "pGxXibheOpw"
+    },
+    "date": "2020"
+  },
+  {
+    "id": "georgia",
+    "area": "usa",
+    "location": "Georgia",
+    "region": "Chattooga River",
+    "coords": [
+      -83.3,
+      34.82
+    ],
+    "category": "Film + river protection",
+    "title": "The Wild President",
+    "description": "Jimmy Carter, a tandem canoe, and the river that helped shape his conservation legacy.",
+    "status": "Director · American Rivers + NRS · 2017",
+    "media": [],
+    "links": [
+      {
+        "label": "Watch The Wild President",
+        "url": "https://www.americanrivers.org/rivers/films/the-wild-president/"
+      }
+    ],
+    "video": {
+      "provider": "vimeo",
+      "id": "213281194"
+    },
+    "date": "2017"
+  },
+  {
+    "id": "china",
+    "area": "asia",
+    "location": "Yunnan, China",
+    "region": "Salween River",
+    "coords": [
+      98.9,
+      26
+    ],
+    "category": "Film + river conservation",
+    "title": "Salween Spring",
+    "description": "A film about Travis Winn, free-flowing rivers, and bringing people closer to the places worth protecting.",
+    "status": "Director · Presented by NRS · 2016",
+    "media": [],
+    "links": [
+      {
+        "label": "Watch Salween Spring",
+        "url": "https://vimeo.com/159848031"
+      }
+    ],
+    "video": {
+      "provider": "vimeo",
+      "id": "159848031"
+    },
+    "date": "2016"
+  },
+  {
+    "id": "dulong",
+    "area": "asia",
+    "location": "Dulong River",
+    "region": "Northwest Yunnan, China",
+    "coords": [
+      98.3378,
+      27.8942
+    ],
+    "category": "Film + river expedition",
+    "title": "Dulong River expedition",
+    "description": "Paddling and filming a kayak expedition on the Dulong River, as new roads changed access to one of Yunnan’s remote valleys.",
+    "status": "Expedition · 2015 · GoKunming interview · 2017",
+    "date": "2015",
+    "media": [],
+    "links": [
+      {
+        "label": "Film & interview on GoKunming",
+        "url": "https://www.gokunming.com/en/blog/item/4017/video-and-interview-first-descent-of-chinas-remote-dulong-river"
+      }
+    ]
+  },
+  {
+    "id": "laos",
+    "area": "asia",
+    "location": "Laos",
+    "region": "China to Laos · National Geographic",
+    "coords": [
+      104,
+      18.5
+    ],
+    "category": "Photography + fieldwork",
+    "title": "Lines on a map",
+    "description": "A six-week cycling expedition with Kyle Hemes, documenting how railways and hydropower were changing communities and rivers between Kunming and Luang Prabang.",
+    "status": "Photography + contributing writing · 2015 expedition · Published 2016",
+    "media": [
+      "nam-ou-river",
+      "nam-ou-cycling"
+    ],
+    "links": [
+      {
+        "label": "Read the National Geographic series",
+        "url": "https://www.nationalgeographic.com/adventure/article/from-china-to-laos-by-bike-exploring-the-course-of-southeast-asias-future-high-speed-rail-15"
+      },
+      {
+        "label": "Read the Nam Ou river story",
+        "url": "https://www.nationalgeographic.com/adventure/article/biking-along-a-soon-to-be-dammed-river-in-laos"
+      }
+    ],
+    "date": "2015–16"
+  },
+  {
+    "id": "vr",
+    "area": "asia",
+    "location": "China",
+    "region": "Google · River conservation",
+    "coords": null,
+    "category": "Immersive media + conservation",
+    "title": "A river, in 360°",
+    "description": "Created virtual-reality content for Google about river conservation in China.",
+    "status": "WSN Media · 2013–2020",
+    "date": "2013–20",
+    "media": [],
+    "links": []
+  },
+  {
+    "id": "colorado",
+    "area": "usa",
+    "location": "Colorado River",
+    "region": "American Southwest",
+    "coords": [
+      -111.5875,
+      36.8647
+    ],
+    "category": "Film + expedition",
+    "title": "Remains of a River",
+    "description": "A source-to-sea journey on the Green and Colorado Rivers with Zak Podmore, for Colorado College’s State of the Rockies project.",
+    "status": "113 days · 1,700 miles · 2011–2012",
+    "media": [],
+    "links": [
+      {
+        "label": "Watch Remains of a River",
+        "url": "https://community.nrs.com/nrs-films/remains-of-a-river/"
+      },
+      {
+        "label": "Read the expedition story",
+        "url": "https://community.nrs.com/duct-tape/2012/10/01/the-end-of-a-river-a-source-to-sea-journey-down-the-colorado-river/"
+      }
+    ],
+    "video": {
+      "provider": "youtube",
+      "id": "O8CXQkXlYg8"
+    },
+    "date": "2011–12"
+  }
+]
