@@ -65,3 +65,7 @@ Published company figures are labeled on the visible card and in the enlargement
 ## Original website figure audit
 
 All five figures displayed on the previous website are included both in their project cards and in the Selected figures gallery: divestment, scenarios, enroads, backtest, and rivers_fyi. Each original PNG is byte-identical to the website repository version. The release also preserves all previous assets/img URLs, including the portrait, favicon, and two unused legacy graphics.
+
+## Publication security
+
+The standalone page uses a Content Security Policy with hashes for its three bundled scripts, local/data images, and only YouTube and Vimeo frames. Browser data requests, plugins, forms, and base URL overrides are blocked. Inline styles remain allowed for D3 layout. The build escapes JSON for HTML script embedding and validates HTTPS project links and video IDs. External links use noopener/noreferrer. No credentials or analytics are included.

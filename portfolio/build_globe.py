@@ -3,6 +3,13 @@ import json
 import base64
 import argparse
 import shutil
+import hashlib
+import re
+from urllib.parse import urlparse
+
+def script_json(value):
+    # HTML parses script end tags before JavaScript parses string literals.
+    return json.dumps(value, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
 
 parser = argparse.ArgumentParser(description='Build Will Stauffer\'s project atlas.')
 parser.add_argument('--output-dir', type=Path)
@@ -18,11 +25,20 @@ text = text.replace('__GLOBE_APP__', (source_dir / 'globe-app.js').read_text())
 for token, name in [('__D3_LIBRARY__', 'd3.min.js'), ('__TOPOJSON_LIBRARY__', 'topojson.min.js')]:
     text = text.replace(token, (source_dir / name).read_text().replace('</script', '<\\/script'))
 world = json.loads((source_dir / 'land.json').read_text())
-text = text.replace('__WORLD_GEOMETRY__', json.dumps(world, separators=(',', ':')))
+text = text.replace('__WORLD_GEOMETRY__', script_json(world))
 states = json.loads((source_dir / 'us-states.json').read_text())
-text = text.replace('__US_GEOMETRY__', json.dumps(states, separators=(',', ':')))
+text = text.replace('__US_GEOMETRY__', script_json(states))
 projects = json.loads((source_dir / 'projects.json').read_text())
-text = text.replace('__PROJECT_DATA__', json.dumps(projects, ensure_ascii=False, separators=(',', ':')))
+for project in projects:
+    for link in project['links']:
+        url = urlparse(link['url'])
+        if url.scheme != 'https' or not url.netloc or url.username or url.password:
+            raise ValueError('Project links must use public HTTPS URLs')
+    if video := project.get('video'):
+        pattern = {'youtube': r'[A-Za-z0-9_-]{11}', 'vimeo': r'[0-9]+'}.get(video['provider'])
+        if not pattern or not re.fullmatch(pattern, video['id']):
+            raise ValueError('Invalid video provider or ID')
+text = text.replace('__PROJECT_DATA__', script_json(projects))
 definitions = {
     'divestment': ('Portfolio emissions before and after divestment', 'UN pension fund figures comparing annual portfolio emissions and sector contributions before and after divestment.', 'Figures I created for the UN Joint Staff Pension Fund’s 2021 TCFD report. Source: Entelligent / UNJSPF.', 827, 1200),
     'scenarios': ('Two climate futures', 'CO2 emissions and temperature projections under business-as-usual and Paris-aligned climate scenarios.', 'EnROADS climate scenarios used in our climate scenario analysis. Source: Entelligent / Climate Interactive.', 1200, 637),
@@ -44,7 +60,7 @@ photos = {
 for name, (title, alt, caption, width, height, original_url) in photos.items():
     encoded = base64.b64encode((source_dir / 'media' / (name + '.webp')).read_bytes()).decode()
     media[name] = dict(title=title, alt=alt, caption=caption, width=width, height=height, src='data:image/webp;base64,'+encoded, original=name+'.jpg', kind='photo', originalUrl=original_url)
-text = text.replace('__PROJECT_MEDIA__', json.dumps(media, ensure_ascii=False, separators=(',', ':')))
+text = text.replace('__PROJECT_MEDIA__', script_json(media))
 portrait = base64.b64encode((source_dir / 'media/profile.webp').read_bytes()).decode()
 text = text.replace('__PROFILE_MEDIA__', 'data:image/webp;base64,'+portrait)
 assert len(text.encode()) < 2_000_000
@@ -60,5 +76,8 @@ document = '''<!doctype html>
 <html lang="en" data-portfolio-page="true">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Will Stauffer: environmental data science and AI for climate, carbon removal, water, and energy."><title>Will Stauffer | Environmental data science &amp; AI</title>
 <style>:root{color-scheme:light dark}body{margin:0;padding:24px;background:light-dark(#edece3,#182019)}@media(max-width:620px){body{padding:0}}</style></head><body>'''
+script_hashes = ' '.join("'sha256-" + base64.b64encode(hashlib.sha256(script.encode()).digest()).decode() + "'" for script in re.findall(r'<script>(.*?)</script>', text, re.S))
+policy = "default-src 'none'; script-src " + script_hashes + "; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://player.vimeo.com; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"
+document = document.replace('<head>', '<head><meta http-equiv="Content-Security-Policy" content="' + policy + '"><meta name="referrer" content="strict-origin-when-cross-origin">')
 output.write_text(document + text + '\n</body></html>')
 print('Created self-contained globe:', output.stat().st_size, 'bytes')
