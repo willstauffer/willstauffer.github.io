@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en" data-portfolio-page="true">
-<head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-8glLv2FBs1lyLE/kVOtsSw8OQswQzHr5IfwVj864ZTk=' 'sha256-Jc0CrkhsxQY+AhWk5M+xXeg3AMh6xIusTVfcaq8+u4k=' 'sha256-Y1nI2O/ArdqHXlFj/rbvGypl3vJCYGYy46uWUgdzEJg='; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://player.vimeo.com; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"><meta name="referrer" content="strict-origin-when-cross-origin"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Will Stauffer: environmental data science and AI for climate, carbon removal, water, and energy."><title>Will Stauffer | Environmental data science &amp; AI</title>
+<head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-8glLv2FBs1lyLE/kVOtsSw8OQswQzHr5IfwVj864ZTk=' 'sha256-Jc0CrkhsxQY+AhWk5M+xXeg3AMh6xIusTVfcaq8+u4k=' 'sha256-p+jWMbtLfKMVQT6J7ozVrgULa2jSsuU2LSV57KqblqQ='; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://player.vimeo.com; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"><meta name="referrer" content="strict-origin-when-cross-origin"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Will Stauffer: environmental data science and AI for climate, carbon removal, water, and energy."><title>Will Stauffer | Environmental data science &amp; AI</title>
 <style>:root{color-scheme:light dark}body{margin:0;padding:24px;background:light-dark(#edece3,#182019)}@media(max-width:620px){body{padding:0}}</style></head><body><div id="will-project-globe" aria-label="Will Stauffer's project globe">
   <header class="site-header"><div class="identity"><span class="name">Will Stauffer</span><span class="practice">Environmental data science & AI.</span></div><a class="contact-link" href="mailto:will@willstauffer.com">Get in touch ↗</a></header>
   <div class="introduction"><div><p class="eyebrow">Selected work</p><h1>Data science for climate, water, and energy.</h1></div><p class="intro-note">Models, forecasts, and AI workflows.<br><span>Open to consulting and full-time roles.</span></p></div>
   <div class="globe-layout">
     <section class="globe-region" aria-label="Interactive project map">
-      <div class="map-tools"><div class="view-controls" aria-label="Map views"><button type="button" class="recent-view" aria-pressed="true">Recent AI work</button><button type="button" class="world-view" aria-pressed="false">Explore the globe ↗</button></div><div class="zoom-controls"><button type="button" class="zoom-out" aria-label="Zoom out">−</button><span class="zoom-level">Regional</span><button type="button" class="zoom-in" aria-label="Zoom in">+</button></div></div>
+      <div class="map-tools"><div class="view-controls" aria-label="Map views"><button type="button" class="recent-view" aria-pressed="true">Recent AI work</button><button type="button" class="world-view" aria-pressed="false">Explore the globe ↗</button></div><div class="zoom-controls"><button type="button" class="browse-projects">Browse projects ↓</button><button type="button" class="zoom-out" aria-label="Zoom out">−</button><span class="zoom-level">Regional</span><button type="button" class="zoom-in" aria-label="Zoom in">+</button></div></div>
       <div class="globe-stage">
         <svg class="globe-svg" role="img" aria-label="Rotatable globe with project markers in Asia, Europe, North America, and South America">
           <defs><radialGradient id="will-ocean-gradient" cx="30%" cy="25%" r="80%"><stop offset="0%" class="ocean-light"/><stop offset="100%" class="ocean-deep"/></radialGradient><radialGradient id="will-globe-shade" cx="25%" cy="25%" r="80%"><stop offset="50%" stop-color="transparent"/><stop offset="100%" class="shade-edge"/></radialGradient></defs>
@@ -204,6 +204,25 @@
 @media(max-width:660px){#will-project-globe .figures-heading{display:block;}#will-project-globe .figures-heading p{margin-top:8px;}#will-project-globe .figure-index{grid-template-columns:1fr;}#will-project-globe .figure-index .figure-preview img{height:auto;max-height:320px;}}
 
 #will-project-globe .about-copy{max-width:700px;margin-top:18px;}
+#will-project-globe .browse-projects{display:none;}
+@media(max-width:660px){
+  #will-project-globe h1{font-size:clamp(34px,9vw,42px);}
+  #will-project-globe .intro-note{font-size:14px;}
+  #will-project-globe .view-controls button{min-height:44px;}
+  #will-project-globe .zoom-controls .browse-projects{display:block;width:auto;margin-right:auto;font-size:12px;text-align:left;}
+  #will-project-globe .list-heading{scroll-margin-top:124px;}
+  #will-project-globe .project-description,#will-project-globe .about-copy>p:not(.eyebrow){font-size:15px;}
+  #will-project-globe .choice-title,#will-project-globe .project-links a,#will-project-globe .about-will,#will-project-globe .experience dd{font-size:14px;}
+  #will-project-globe .choice-location,#will-project-globe .workflow small,#will-project-globe .project-status,#will-project-globe .about-skills,#will-project-globe .figure-preview span{font-size:12px;}
+  #will-project-globe .workflow span,#will-project-globe .detail-tabs button{font-size:13px;}
+  #will-project-globe .scenario-heading{flex-wrap:wrap;}
+  #will-project-globe .scenario-year{font-size:16px;}
+  #will-project-globe .project-video iframe{min-height:0;}
+  #will-project-globe .figure-dialog{max-height:calc(100dvh - 24px);}
+  #will-project-globe .figure-dialog-heading{position:sticky;top:-16px;background:var(--paper);padding:12px 0;}
+  #will-project-globe .figure-dialog-heading h2{font-size:22px;}
+  #will-project-globe .figure-dialog figcaption,#will-project-globe .original-figure{font-size:14px;}
+}
 
 </style>
 <script>// https://d3js.org v7.9.0 Copyright 2010-2023 Mike Bostock
@@ -446,6 +465,10 @@
     if(matchMedia('(max-width: 660px)').matches)stage.scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
   });
   root.querySelector('.recent-view').addEventListener('click',()=>selectProject(projects.find(p=>p.id==='entelligent'),{source:'recent'}));
+  root.querySelector('.browse-projects').addEventListener('click',()=>{
+    root.querySelector('.list-heading').scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
+    choices.get(selected.id).focus({preventScroll:true});
+  });
   const detailTabs=[...root.querySelectorAll('.detail-tabs [role=tab]')];
   function activateDetailTab(tab){
     detailTabs.forEach(button=>{const active=button===tab;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;root.querySelector('#'+button.getAttribute('aria-controls')).hidden=!active;});

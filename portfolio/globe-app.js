@@ -232,6 +232,10 @@
     if(matchMedia('(max-width: 660px)').matches)stage.scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
   });
   root.querySelector('.recent-view').addEventListener('click',()=>selectProject(projects.find(p=>p.id==='entelligent'),{source:'recent'}));
+  root.querySelector('.browse-projects').addEventListener('click',()=>{
+    root.querySelector('.list-heading').scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
+    choices.get(selected.id).focus({preventScroll:true});
+  });
   const detailTabs=[...root.querySelectorAll('.detail-tabs [role=tab]')];
   function activateDetailTab(tab){
     detailTabs.forEach(button=>{const active=button===tab;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;root.querySelector('#'+button.getAttribute('aria-controls')).hidden=!active;});

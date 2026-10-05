@@ -153,3 +153,22 @@
 @media(max-width:660px){#will-project-globe .figures-heading{display:block;}#will-project-globe .figures-heading p{margin-top:8px;}#will-project-globe .figure-index{grid-template-columns:1fr;}#will-project-globe .figure-index .figure-preview img{height:auto;max-height:320px;}}
 
 #will-project-globe .about-copy{max-width:700px;margin-top:18px;}
+#will-project-globe .browse-projects{display:none;}
+@media(max-width:660px){
+  #will-project-globe h1{font-size:clamp(34px,9vw,42px);}
+  #will-project-globe .intro-note{font-size:14px;}
+  #will-project-globe .view-controls button{min-height:44px;}
+  #will-project-globe .zoom-controls .browse-projects{display:block;width:auto;margin-right:auto;font-size:12px;text-align:left;}
+  #will-project-globe .list-heading{scroll-margin-top:124px;}
+  #will-project-globe .project-description,#will-project-globe .about-copy>p:not(.eyebrow){font-size:15px;}
+  #will-project-globe .choice-title,#will-project-globe .project-links a,#will-project-globe .about-will,#will-project-globe .experience dd{font-size:14px;}
+  #will-project-globe .choice-location,#will-project-globe .workflow small,#will-project-globe .project-status,#will-project-globe .about-skills,#will-project-globe .figure-preview span{font-size:12px;}
+  #will-project-globe .workflow span,#will-project-globe .detail-tabs button{font-size:13px;}
+  #will-project-globe .scenario-heading{flex-wrap:wrap;}
+  #will-project-globe .scenario-year{font-size:16px;}
+  #will-project-globe .project-video iframe{min-height:0;}
+  #will-project-globe .figure-dialog{max-height:calc(100dvh - 24px);}
+  #will-project-globe .figure-dialog-heading{position:sticky;top:-16px;background:var(--paper);padding:12px 0;}
+  #will-project-globe .figure-dialog-heading h2{font-size:22px;}
+  #will-project-globe .figure-dialog figcaption,#will-project-globe .original-figure{font-size:14px;}
+}
