@@ -172,3 +172,24 @@
   #will-project-globe .figure-dialog-heading h2{font-size:22px;}
   #will-project-globe .figure-dialog figcaption,#will-project-globe .original-figure{font-size:14px;}
 }
+
+#will-project-globe .work-shortcuts{display:flex;align-items:center;flex-wrap:wrap;gap:8px 22px;margin:-5px 0 26px;font-size:12px;}
+#will-project-globe .work-shortcuts>span{color:var(--subtle);text-transform:uppercase;font-size:10px;letter-spacing:1px;}
+#will-project-globe .work-shortcuts a,#will-project-globe .related-projects a,#will-project-globe .resume-link,#will-project-globe .project-permalink{color:var(--ink);text-underline-offset:4px;min-height:44px;display:inline-flex;align-items:center;}
+#will-project-globe .work-shortcuts a[aria-current]{text-decoration-color:var(--pin);text-decoration-thickness:2px;}
+#will-project-globe .ai-detail h3{font-size:13px;font-weight:400;color:var(--subtle);margin:0 0 16px;}
+#will-project-globe .project-facts{border-top:1px solid var(--line);padding-top:18px;margin:22px 0;display:grid;gap:14px;}
+#will-project-globe .project-facts dt{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--subtle);margin-bottom:5px;}
+#will-project-globe .project-facts dd{font-size:13px;line-height:1.6;margin:0;}
+#will-project-globe .related-projects{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;font-size:13px;}
+#will-project-globe .project-permalink{font-size:11px;color:var(--subtle);margin-top:10px;}
+#will-project-globe .resume-link{font-size:14px;margin:2px 0 12px;}
+@media(max-width:660px){#will-project-globe .work-shortcuts{gap:0 16px;margin-bottom:18px;}#will-project-globe .work-shortcuts>span{flex-basis:100%;}#will-project-globe .work-shortcuts a{font-size:13px;}#will-project-globe .project-facts dd{font-size:14px;}}
+
+#will-project-globe .figure-actions{display:flex;flex-wrap:wrap;gap:6px;flex:none;}
+#will-project-globe .zoom-figure{border:1px solid var(--line);background:var(--paper);padding:8px 12px;min-height:44px;font-size:12px;}
+#will-project-globe .figure-image-wrap{overflow:auto;max-width:100%;}
+#will-project-globe .figure-dialog[data-zoomed=true] figure img{width:max(100%,var(--figure-width));max-width:none;}
+@media(max-width:660px){#will-project-globe .figure-dialog-heading{flex-wrap:wrap;}#will-project-globe .figure-actions{width:100%;justify-content:space-between;}}
+
+#will-project-globe .figure-dialog[data-zoomed=true] .figure-image-wrap::after{content:"Scroll sideways for detail";display:block;position:sticky;left:0;font-size:11px;color:var(--subtle);padding-top:8px;}

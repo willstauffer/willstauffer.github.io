@@ -40,17 +40,19 @@ for project in projects:
             raise ValueError('Invalid video provider or ID')
 text = text.replace('__PROJECT_DATA__', script_json(projects))
 definitions = {
+    'river-runoff': ('River forecast: observed vs. predicted', 'Observed and one-day-ahead predicted South Fork Payette flow during spring runoff in 2019. The prediction lags a sharp rise.', 'My published 2020 LSTM experiment: observed flow (blue) and one-day-ahead predictions (red), in cubic feet per second. The broad runoff pattern looks convincing, but the sharp rise exposes a timing error. That limitation is why I looked beyond the overall model score. Source: Will Stauffer-Norris, September 2020 river-forecasting writeup.', 1400, 401),
     'divestment': ('Portfolio emissions before and after divestment', 'UN pension fund figures comparing annual portfolio emissions and sector contributions before and after divestment.', 'Figures I created for the UN Joint Staff Pension Fund’s 2021 TCFD report. Source: Entelligent / UNJSPF.', 827, 1200),
     'scenarios': ('Two climate futures', 'CO2 emissions and temperature projections under business-as-usual and Paris-aligned climate scenarios.', 'EnROADS climate scenarios used in our climate scenario analysis. Source: Entelligent / Climate Interactive.', 1200, 637),
-    'enroads': ('Inside the scenario model', 'EnROADS scenario settings for energy supply, transport, carbon removal, and warming by 2100.', 'EnROADS scenario interface from my existing portfolio. Source: Climate Interactive / MIT Sloan.', 1200, 658),
+    'enroads': ('Inside the scenario model', 'EnROADS scenario settings for energy supply, transport, carbon removal, and warming by 2100.', 'The scenario settings behind the emissions and temperature comparison. Interface by Climate Interactive / MIT Sloan.', 1200, 658),
     'backtest': ('Climate scores, backtested', 'Historical E-Score and T-Risk portfolio backtest compared with the SPDR S&P 500 ETF from 2017 to 2022.', 'Example historical portfolio backtest from my earlier Entelligent work, 2017–2022.', 1084, 1200),
-    'rivers_fyi': ('A river forecast in practice', 'rivers.fyi interface showing historical river flow and an LSTM model forecast.', 'Live river flow forecasting from rivers.fyi. Figure from my existing portfolio.', 600, 441),
+    'rivers_fyi': ('A river forecast in practice', 'rivers.fyi interface showing historical river flow and an LSTM model forecast.', 'The rivers.fyi interface from my 2020 forecasting project, combining historical observations and an LSTM forecast. Historical screenshot; not a current live forecast.', 600, 441),
     'energy-returns': ('Energy prices and company returns', 'Published chart comparing coal, oil, and gas prices with returns for 3M and Volvo, with historical market events marked.', 'Figure 6 from Energy-Climate Transition Risk for Equities, a March 15, 2021 research note by Elliot Cohen. Source: Entelligent Data Science Team. Historical observational relationships between energy prices and company performance.', 900, 512),
 }
 media = {}
 for name, (title, alt, caption, width, height) in definitions.items():
     encoded = base64.b64encode((source_dir / 'media' / (name + '.webp')).read_bytes()).decode()
     media[name] = dict(title=title, alt=alt, caption=caption, width=width, height=height, src='data:image/webp;base64,'+encoded, original=name+'.png')
+media['river-runoff']['credit'] = 'My river-forecasting experiment · 2020'
 media['energy-returns']['credit'] = 'Published Entelligent research · 2021'
 media['energy-returns']['originalUrl'] = 'https://www.entelligent.com/wp-content/uploads/2021/04/Energy-Climate-Transition-Risk-for-Equities.pdf#page=7'
 photos = {
@@ -69,6 +71,7 @@ if args.inline_output:
     args.inline_output.write_text(text)
 assets = output_dir / 'assets'
 assets.mkdir(exist_ok=True)
+shutil.copy2(source_dir / 'documents/will-stauffer-resume.pdf', assets / 'will-stauffer-resume.pdf')
 for filename in [figure['original'] for figure in media.values()]:
     shutil.copy2(source_dir / 'originals' / filename, assets / filename)
 # Keep the inline artifact self-contained, but let the website cache and lazily

@@ -9,43 +9,19 @@
       40.02
     ],
     "category": "Data science + AI workflows",
-    "title": "Climate modeling, with AI in the loop",
-    "description": "I direct parallel agents, explore tradeoffs, and check what changes in the scores. Tests and before-and-after plots decide whether the work holds up.",
+    "title": "Building climate-risk products with AI",
+    "description": "At Entelligent, I developed and delivered SAFE for AMRO. I also improved how we built climate-risk products, using parallel agents, automated validation, and years of context in the codebase.",
     "status": "Entelligent · October 2025–present",
     "media": [],
-    "links": [
-      {
-        "label": "Read Entelligent’s scenario report",
-        "url": "https://www.entelligent.com/wp-content/uploads/2025/06/Entelligent-Case-Study-European-Industrial-Co-Transition-Disclosure-Report-20250617-1.pdf#page=14"
-      }
-    ],
+    "links": [],
     "date": "2025–now",
     "detail": "ai",
-    "benchmark": {
-      "before": 14.6,
-      "after": 2.2,
-      "unit": "seconds",
-      "date": "July 2026"
-    },
-    "publishedScenario": {
-      "years": {
-        "2025": {
-          "ndc": 15,
-          "netZero": 36
-        },
-        "2030": {
-          "ndc": 129,
-          "netZero": 290
-        },
-        "2045": {
-          "ndc": 343,
-          "netZero": 542
-        }
-      },
-      "source": "https://www.entelligent.com/wp-content/uploads/2025/06/Entelligent-Case-Study-European-Industrial-Co-Transition-Disclosure-Report-20250617-1.pdf",
-      "figure": 10,
-      "page": 14
-    }
+    "related": [
+      {
+        "id": "singapore",
+        "label": "SAFE: credit risk across 30,000+ companies"
+      }
+    ]
   },
   {
     "id": "singapore",
@@ -58,11 +34,31 @@
     ],
     "category": "Data science + climate risk",
     "title": "Climate-related credit risk",
-    "description": "Developed SAFE for AMRO at Entelligent, modeling climate-related credit risk across 30,000+ public companies.",
+    "description": "Developed and delivered SAFE for AMRO, the economic and financial policy organization serving ASEAN+3. The product models climate-related credit risk across 30,000+ public companies.",
     "status": "Entelligent · October 2025–present",
     "media": [],
     "links": [],
-    "date": "2025–now"
+    "date": "2025–now",
+    "facts": [
+      [
+        "Build",
+        "Financial and emissions models in Python."
+      ],
+      [
+        "Check",
+        "Automated validation of client climate-risk reports."
+      ],
+      [
+        "Deliver",
+        "Model results for an institutional client."
+      ]
+    ],
+    "related": [
+      {
+        "id": "entelligent",
+        "label": "How I use AI in product development"
+      }
+    ]
   },
   {
     "id": "cdr",
@@ -72,7 +68,7 @@
     "coords": null,
     "category": "Forecasting + carbon removal",
     "title": "How much carbon can we remove?",
-    "description": "Forecasting durable carbon removal deployment and what it could mean for climate targets.",
+    "description": "Completed a forecasting project assessing durable carbon-removal deployment against climate targets.",
     "status": "Data science consulting · 2024",
     "media": [],
     "links": [
@@ -94,7 +90,7 @@
     ],
     "category": "Data visualization + water",
     "title": "Irrigation modernization",
-    "description": "Tableau visualizations of conservation projects over time, helping Oregon legislators understand irrigation modernization funding.",
+    "description": "Gathered project data across Farmers Conservation Alliance and built Tableau visualizations showing projects over time, supporting materials for Oregon legislators on irrigation-modernization funding.",
     "status": "Farmers Conservation Alliance · 2024–2025",
     "media": [],
     "links": [
@@ -142,7 +138,7 @@
     ],
     "category": "Climate risk + data engineering",
     "title": "Climate scores, backtested",
-    "description": "E-Score and T-Risk models for climate-aware investing. Built and migrated the portfolio backtesting pipeline to dbt and Snowflake.",
+    "description": "Developed E-Score and T-Risk climate-risk models. Migrated portfolio backtesting from Postgres to dbt and Snowflake; T-Risk launched on FactSet covering 35,000+ equities.",
     "status": "Entelligent · 2020–2023",
     "date": "2020–23",
     "media": [
@@ -179,9 +175,32 @@
       {
         "label": "Read Entelligent’s energy-transition research",
         "url": "https://www.entelligent.com/wp-content/uploads/2021/04/Energy-Climate-Transition-Risk-for-Equities.pdf#page=7"
+      },
+      {
+        "label": "Read Entelligent’s scenario report",
+        "url": "https://www.entelligent.com/wp-content/uploads/2025/06/Entelligent-Case-Study-European-Industrial-Co-Transition-Disclosure-Report-20250617-1.pdf#page=14"
       }
     ],
-    "date": "2020–23"
+    "date": "2020–23",
+    "publishedScenario": {
+      "years": {
+        "2025": {
+          "ndc": 15,
+          "netZero": 36
+        },
+        "2030": {
+          "ndc": 129,
+          "netZero": 290
+        },
+        "2045": {
+          "ndc": 343,
+          "netZero": 542
+        }
+      },
+      "source": "https://www.entelligent.com/wp-content/uploads/2025/06/Entelligent-Case-Study-European-Industrial-Co-Transition-Disclosure-Report-20250617-1.pdf",
+      "figure": 10,
+      "page": 14
+    }
   },
   {
     "id": "idaho",
@@ -194,18 +213,33 @@
     ],
     "category": "Machine learning + river flow",
     "title": "rivers.fyi",
-    "description": "Live river forecasts using an LSTM neural network, USGS and NOAA data, and more than 30 years of records.",
-    "status": "TensorFlow · Time series · 2020",
+    "description": "Built a river-flow forecasting app with USGS and NOAA data and an LSTM trained on 30+ years of records. The important question: could it anticipate the rapid rises that matter on a river?",
+    "status": "Personal forecasting project · 2020",
     "media": [
+      "river-runoff",
       "rivers_fyi"
     ],
     "links": [
       {
         "label": "Read the river forecast story",
         "url": "https://medium.com/data-science/predicting-the-flow-of-the-south-fork-payette-river-using-an-lstm-neural-network-65292eadf6a6"
+      },
+      {
+        "label": "Explore the original notebooks · 2020",
+        "url": "https://github.com/willstauffer/streamflow_predictions"
       }
     ],
-    "date": "2020"
+    "date": "2020",
+    "facts": [
+      [
+        "Forecast",
+        "One-day lead time; trained on 1987–2015 and evaluated on 2016–2020."
+      ],
+      [
+        "Judgment",
+        "The model followed the broad pattern but lagged sharp rises. Overall fit alone did not tell the whole story."
+      ]
+    ]
   },
   {
     "id": "permits",

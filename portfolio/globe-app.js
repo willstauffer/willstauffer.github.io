@@ -20,7 +20,8 @@
   const buttons=new Map(),choices=new Map();
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const saved=window.openai?.widgetState;
-  let selected=projects.find(p=>p.id===saved?.modelContent?.project)||projects[0];
+  const projectFromHash=()=>projects.find(p=>'#project='+p.id===window.location.hash);
+  let selected=projectFromHash()||projects.find(p=>p.id===saved?.modelContent?.project)||projects[0];
   let center=selected.coords?[-selected.coords[0],-selected.coords[1],0]:[-104,-18.5,0];
   let zoom=1,width=0,radius=0,frame=0,drawFrame=0,listTimer=0,listLockedUntil=0;
   let drag=null,pinch=null,gestureMoved=false,gesturePinched=false;
@@ -44,7 +45,14 @@
     projects.forEach(p=>{buttons.get(p.id).setAttribute('aria-pressed',String(p===selected));choices.get(p.id).setAttribute('aria-pressed',String(p===selected));});
     root.querySelector('.ai-detail').hidden=selected.detail!=='ai';
     root.dataset.project=selected.id;
-    if(selected.detail==='ai')drawBenchmark();
+
+    root.querySelector('.project-permalink').href='#project='+selected.id;
+    root.querySelectorAll('.work-shortcuts a').forEach(a=>{if(a.hash==='#project='+selected.id)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
+    const facts=root.querySelector('.project-facts');facts.replaceChildren();facts.hidden=!selected.facts?.length;
+    for(const [label,text] of selected.facts||[]){const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=text;row.append(dt,dd);facts.append(row);}
+    const related=root.querySelector('.related-projects');related.replaceChildren();related.hidden=!selected.related?.length;
+    for(const item of selected.related||[]){const a=document.createElement('a');a.href='#project='+item.id;a.textContent=item.label+' →';related.append(a);}
+
     root.querySelector('.published-scenario').hidden=!selected.publishedScenario;
     if(selected.publishedScenario)drawScenario();
     const video=root.querySelector('.project-video');
@@ -71,29 +79,13 @@
       if(figure.credit){const credit=document.createElement('small');credit.className='figure-credit';credit.textContent=figure.credit;button.append(credit);}
       return button;
   }
-  ['divestment','scenarios','enroads','backtest','rivers_fyi'].forEach(id=>root.querySelector('.figure-index').append(makeFigurePreview(id)));
-  function drawBenchmark(){
-    const chart=d3.select(root.querySelector('.benchmark-chart'));
-    const chartWidth=root.querySelector('.project-card').clientWidth-44;
-    if(chartWidth<1||!selected.benchmark)return;
-    const left=48,right=37,height=138;
-    const scale=d3.scaleLinear().domain([0,15]).range([left,chartWidth-right]);
-    chart.attr('viewBox',`0 0 ${chartWidth} ${height}`).attr('height',height);
-    chart.selectAll('*').remove();
-    const ticks=[0,5,10,15];
-    chart.selectAll('.tick-line').data(ticks).join('line').attr('class','tick-line').attr('x1',scale).attr('x2',scale).attr('y1',22).attr('y2',103);
-    chart.selectAll('.tick-label').data(ticks).join('text').attr('x',scale).attr('y',118).attr('text-anchor','middle').text(d=>d);
-    chart.append('text').attr('x',(left+chartWidth-right)/2).attr('y',135).attr('text-anchor','middle').text('Seconds · lower is faster');
-    const values=[{label:'Before',value:selected.benchmark.before,kind:'before-bar',y:34},{label:'After',value:selected.benchmark.after,kind:'after-bar',y:77}];
-    chart.selectAll('.bar').data(values).join('rect').attr('class',d=>'bar '+d.kind).attr('x',left).attr('y',d=>d.y).attr('width',d=>scale(d.value)-left).attr('height',18);
-    chart.selectAll('.bar-label').data(values).join('text').attr('x',0).attr('y',d=>d.y+13).text(d=>d.label);
-    chart.selectAll('.bar-value').data(values).join('text').attr('x',d=>scale(d.value)+5).attr('y',d=>d.y+13).text(d=>d.value.toFixed(1));
-  }
+  ['river-runoff','divestment','backtest','scenarios','enroads','rivers_fyi'].forEach(id=>root.querySelector('.figure-index').append(makeFigurePreview(id)));
   function openFigure(id){
     const figure=media[id];dialog.querySelector('h2').textContent=figure.title;
     const image=dialog.querySelector('img');image.src=standalone?'assets/'+figure.original:figure.src;image.alt=figure.alt;
     dialog.querySelector('figcaption').textContent=figure.caption;
     dialog.querySelector('.original-figure').href=standalone?'assets/'+figure.original:(figure.originalUrl||'https://www.willstauffer.com/assets/img/'+figure.original);
+    dialog.dataset.zoomed='false';dialog.style.setProperty('--figure-width',figure.width+'px');dialog.querySelector('.zoom-figure').textContent='Zoom figure';dialog.querySelector('.zoom-figure').setAttribute('aria-pressed','false');
     dialog.showModal();
   }
   function drawScenario(){
@@ -114,6 +106,7 @@
     chart.selectAll('.scenario-value').data(rows).join('text').attr('x',d=>scale(d.value)+6).attr('y',d=>d.y+16).text(d=>d.value);
   }
   root.querySelector('.scenario-year').addEventListener('change',drawScenario);
+  dialog.querySelector('.zoom-figure').addEventListener('click',()=>{const zoomed=dialog.dataset.zoomed!=='true';dialog.dataset.zoomed=String(zoomed);dialog.querySelector('.zoom-figure').setAttribute('aria-pressed',String(zoomed));dialog.querySelector('.zoom-figure').textContent=zoomed?'Fit figure':'Zoom figure';});
   dialog.querySelector('.close-figure').addEventListener('click',()=>dialog.close());
   dialog.addEventListener('click',event=>{if(event.target===dialog){const box=dialog.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)dialog.close();}});
   function followList(animate=true){
@@ -188,7 +181,7 @@
     width=nextWidth;svg.attr('viewBox',`0 0 ${width} ${width}`);
     const last=choices.get(projects.at(-1).id);
     picker.style.setProperty('--list-tail',Math.max(0,picker.clientHeight-last.offsetHeight)+'px');
-    draw();followList(false);if(selected.detail==='ai')drawBenchmark();if(selected.publishedScenario)drawScenario();
+    draw();followList(false);if(selected.publishedScenario)drawScenario();
   }
   function moveCamera(target,{animate=true,travel=false}={}){
     cancelAnimationFrame(frame);
@@ -214,10 +207,11 @@
     };
     frame=requestAnimationFrame(tick);
   }
-  function selectProject(project,{source='pin',animate=true}={}){
+  function selectProject(project,{source='pin',animate=true,historyMode='replace'}={}){
     selected=project;updateCard();if(source!=='scroll')followList(animate);
+    if(standalone&&historyMode!=='none'&&window.location.hash!=='#project='+project.id)history[historyMode==='push'?'pushState':'replaceState'](null,'','#project='+project.id);
     moveCamera(regionalCamera(project),{animate,travel:true});
-    if(matchMedia('(max-width: 660px)').matches&&['pin','list','recent'].includes(source))root.querySelector('.project-card').scrollIntoView({block:'start',behavior:animate&&!reduced.matches?'smooth':'instant'});
+    if(matchMedia('(max-width: 660px)').matches&&['pin','list','recent','link'].includes(source))root.querySelector('.project-card').scrollIntoView({block:'start',behavior:animate&&!reduced.matches?'smooth':'instant'});
   }
   projects.forEach((project,index)=>{
     const pin=document.createElement('button');pin.type='button';pin.className='map-pin';pin.dataset.project=project.id;pin.setAttribute('aria-label','Open '+project.title+' in '+project.location);pin.title=project.title+' · '+project.location;
@@ -248,20 +242,14 @@
     root.querySelector('.list-heading').scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
     choices.get(selected.id).focus({preventScroll:true});
   });
-  const detailTabs=[...root.querySelectorAll('.detail-tabs [role=tab]')];
-  function activateDetailTab(tab){
-    detailTabs.forEach(button=>{const active=button===tab;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;root.querySelector('#'+button.getAttribute('aria-controls')).hidden=!active;});
-    if(tab.id==='result-tab')drawBenchmark();
-  }
-  detailTabs.forEach((tab,index)=>{
-    tab.addEventListener('click',()=>activateDetailTab(tab));
-    tab.addEventListener('keydown',event=>{
-      let target;
-      if(event.key==='ArrowRight'||event.key==='ArrowLeft')target=detailTabs[1-index];
-      if(event.key==='Home')target=detailTabs[0];if(event.key==='End')target=detailTabs[1];
-      if(target){event.preventDefault();activateDetailTab(target);target.focus();}
-    });
+  root.addEventListener('click',event=>{
+    const link=event.target.closest('a[href^="#project="]');
+    if(!link||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+    const project=projects.find(p=>link.hash==='#project='+p.id);if(!project)return;
+    event.preventDefault();selectProject(project,{source:'link',historyMode:'push'});
   });
+  const followHash=()=>{const project=projectFromHash()||projects[0];if(project!==selected)selectProject(project,{source:'history',animate:false,historyMode:'none'});};
+  window.addEventListener('hashchange',followHash);window.addEventListener('popstate',followHash);
   root.querySelector('.zoom-in').addEventListener('click',()=>moveCamera({rotation:center,zoom:zoom*1.4}));
   root.querySelector('.zoom-out').addEventListener('click',()=>moveCamera({rotation:center,zoom:zoom/1.4}));
   root.querySelectorAll('[data-rotate]').forEach(button=>button.addEventListener('click',()=>moveCamera({rotation:[center[0]-Number(button.dataset.rotate),center[1],0],zoom:1})));

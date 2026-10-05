@@ -31,7 +31,7 @@ python3 build_globe.py --output-dir /path/to/output
 
 Project descriptions draw on Will's October 2026 base resume, existing personal website, and descriptions given in this conversation. The AI workflow is Will's own account of directing parallel agents, checking tradeoffs, running tests, and comparing outputs visually.
 
-The financial projection benchmark is 14.6 seconds before and 2.2 seconds after, on the same workload. It is a function-level benchmark from July 16, 2026 (commit e146de09a), recorded in the prior resume codebase evidence audit. Output parity was tested against the original. This does not represent a whole-pipeline speedup or a measurement of AI productivity.
+The former financial-projection-step speed benchmark was removed after Will rejected it as insufficient context for his contribution.
 
 The climate backtest is earlier work covering 2017–2022. UN figures come from the original website and the UNJSPF 2021 TCFD reporting work. Other visuals include Climate Interactive / MIT Sloan's EnROADS interface and the rivers.fyi forecast interface. Original images and compressed thumbnails are included.
 
@@ -77,3 +77,11 @@ The website loads three deferred scripts with content-hashed filenames and integ
 ## Bay Area work
 
 Plenty and Oru Kayak were added at Will’s request. Both use a shared San Francisco regional anchor for Bay Area work, not an office or filming address. Plenty’s agtech storytelling role was already established in the portfolio biography. Will confirmed that Oru Kayak was the $1M+ Kickstarter campaign on his résumé: he created the film and helped with marketing. Exact project dates remain unspecified. Company links provide background; they do not establish personal authorship of every company output.
+
+## October 4 founder-review improvements
+
+Removed the function-speed benchmark at Will's request. The opening card now describes AI-assisted product delivery and organizational workflow. The public June 2025 scenario example is retained as clearly labeled company context on the Paris card, not as evidence of Will's October 2025-present work.
+
+Added the original spring-2019 runoff comparison from Will's September 2020 Medium article (image: https://miro.medium.com/v2/resize:fit:1400/1*NNBOVTxs86HiDESM8VhgIg.png). Blue is observed flow and red is the one-day-ahead prediction. The caption retains the documented peak-lag limitation; no model-superiority claim is added. Original bytes are retained, with a compressed WebP preview.
+
+Project URLs use #project=<id>, with featured-work shortcuts, reload support, and browser history. A public one-page resume reproduces the current base resume, with Will's clarified Oru campaign contribution and public email contact (phone omitted). All original website figures and film links remain available.
