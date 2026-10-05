@@ -11,7 +11,6 @@
         <svg class="globe-svg" role="img" aria-label="Rotatable globe with project markers in Asia, Europe, North America, and South America">
           <defs><radialGradient id="will-ocean-gradient" cx="30%" cy="25%" r="80%"><stop offset="0%" class="ocean-light"/><stop offset="100%" class="ocean-deep"/></radialGradient><radialGradient id="will-globe-shade" cx="25%" cy="25%" r="80%"><stop offset="50%" stop-color="transparent"/><stop offset="100%" class="shade-edge"/></radialGradient></defs>
           <circle class="atmosphere"/><path class="ocean"/><path class="graticule"/><path class="land"/><path class="state-lines"/><circle class="globe-shading"/>
-          <g class="pin-leaders" aria-hidden="true"></g>
         </svg>
         <div class="pin-layer"></div>
         <div class="map-corner map-caption"><span class="map-view-label">Regional view</span><strong class="map-place">Boulder, Colorado</strong></div><div class="map-corner compass" aria-hidden="true">N<span>↑</span></div>
@@ -85,7 +84,6 @@
 #will-project-globe .graticule{fill:none;stroke:var(--paper);stroke-width:.7px;opacity:.38;}
 #will-project-globe .state-lines{fill:none;stroke:var(--land-edge);stroke-width:1;opacity:.8;pointer-events:none;}
 #will-project-globe .globe-shading{fill:url(#will-globe-shade);pointer-events:none;}#will-project-globe .shade-edge{stop-color:var(--shade);}
-#will-project-globe .pin-leaders line{stroke:var(--ink);stroke-width:.8;opacity:.5;}#will-project-globe .pin-leaders circle{fill:var(--ink);opacity:.5;}
 #will-project-globe .pin-layer{position:absolute;inset:0;pointer-events:none;}
 #will-project-globe .map-pin{position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;padding:0;border:0;background:transparent;pointer-events:auto;display:grid;place-items:center;}
 #will-project-globe .pin-dot{display:block;width:16px;height:16px;border-radius:50%;background:var(--pin);border:2px solid var(--paper);box-shadow:0 2px 0 var(--shade);}
@@ -344,7 +342,7 @@
     svg.select('.graticule').attr('d',path(graticule));svg.select('.state-lines').attr('d',zoom>1.4?path(stateBorders):null);
     svg.select('.atmosphere').attr('cx',width/2).attr('cy',width/2).attr('r',radius+7);
     svg.select('.globe-shading').attr('cx',width/2).attr('cy',width/2).attr('r',radius);
-    const front=mappedProjects.filter(p=>d3.geoDistance(p.coords,[-center[0],-center[1]])<Math.PI/2-.04).map(p=>{const pos=projection(p.coords);return {p,anchor:pos,x:pos[0],y:pos[1]};}).filter(f=>f.x>=24&&f.x<=width-24&&f.y>=24&&f.y<=width-24);
+    const front=mappedProjects.filter(p=>d3.geoDistance(p.coords,[-center[0],-center[1]])<Math.PI/2-.04).map(p=>{const pos=projection(p.coords);return {p,x:pos[0],y:pos[1]};}).filter(f=>f.x>=24&&f.x<=width-24&&f.y>=24&&f.y<=width-24);
     for(let iteration=0;iteration<40;iteration++){
       for(let a=0;a<front.length;a++)for(let b=a+1;b<front.length;b++){
       let dx=front[b].x-front[a].x,dy=front[b].y-front[a].y,distance=Math.hypot(dx,dy);
@@ -354,9 +352,6 @@
     }
     projects.forEach(p=>buttons.get(p.id).hidden=!front.some(f=>f.p===p));
     front.forEach(f=>{f.x=Math.max(26,Math.min(width-26,f.x));f.y=Math.max(26,Math.min(width-26,f.y));const button=buttons.get(f.p.id);button.style.left=f.x+'px';button.style.top=f.y+'px';});
-    const leaders=svg.select('.pin-leaders');
-    leaders.selectAll('line').data(front,f=>f.p.id).join('line').attr('x1',f=>f.anchor[0]).attr('y1',f=>f.anchor[1]).attr('x2',f=>f.x).attr('y2',f=>f.y);
-    leaders.selectAll('circle').data(front,f=>f.p.id).join('circle').attr('cx',f=>f.anchor[0]).attr('cy',f=>f.anchor[1]).attr('r',2);
     root.querySelector('.zoom-level').textContent=zoom<1.05?'World':zoom.toFixed(1)+'×';
     root.querySelector('.zoom-out').disabled=zoom<=1.01;root.querySelector('.zoom-in').disabled=zoom>=3.99;
     const globeMode=zoom<1.05;

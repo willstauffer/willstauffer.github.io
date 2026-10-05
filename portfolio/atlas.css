@@ -33,7 +33,6 @@
 #will-project-globe .graticule{fill:none;stroke:var(--paper);stroke-width:.7px;opacity:.38;}
 #will-project-globe .state-lines{fill:none;stroke:var(--land-edge);stroke-width:1;opacity:.8;pointer-events:none;}
 #will-project-globe .globe-shading{fill:url(#will-globe-shade);pointer-events:none;}#will-project-globe .shade-edge{stop-color:var(--shade);}
-#will-project-globe .pin-leaders line{stroke:var(--ink);stroke-width:.8;opacity:.5;}#will-project-globe .pin-leaders circle{fill:var(--ink);opacity:.5;}
 #will-project-globe .pin-layer{position:absolute;inset:0;pointer-events:none;}
 #will-project-globe .map-pin{position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;padding:0;border:0;background:transparent;pointer-events:auto;display:grid;place-items:center;}
 #will-project-globe .pin-dot{display:block;width:16px;height:16px;border-radius:50%;background:var(--pin);border:2px solid var(--paper);box-shadow:0 2px 0 var(--shade);}

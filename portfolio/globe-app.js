@@ -131,7 +131,7 @@
     svg.select('.graticule').attr('d',path(graticule));svg.select('.state-lines').attr('d',zoom>1.4?path(stateBorders):null);
     svg.select('.atmosphere').attr('cx',width/2).attr('cy',width/2).attr('r',radius+7);
     svg.select('.globe-shading').attr('cx',width/2).attr('cy',width/2).attr('r',radius);
-    const front=mappedProjects.filter(p=>d3.geoDistance(p.coords,[-center[0],-center[1]])<Math.PI/2-.04).map(p=>{const pos=projection(p.coords);return {p,anchor:pos,x:pos[0],y:pos[1]};}).filter(f=>f.x>=24&&f.x<=width-24&&f.y>=24&&f.y<=width-24);
+    const front=mappedProjects.filter(p=>d3.geoDistance(p.coords,[-center[0],-center[1]])<Math.PI/2-.04).map(p=>{const pos=projection(p.coords);return {p,x:pos[0],y:pos[1]};}).filter(f=>f.x>=24&&f.x<=width-24&&f.y>=24&&f.y<=width-24);
     for(let iteration=0;iteration<40;iteration++){
       for(let a=0;a<front.length;a++)for(let b=a+1;b<front.length;b++){
       let dx=front[b].x-front[a].x,dy=front[b].y-front[a].y,distance=Math.hypot(dx,dy);
@@ -141,9 +141,6 @@
     }
     projects.forEach(p=>buttons.get(p.id).hidden=!front.some(f=>f.p===p));
     front.forEach(f=>{f.x=Math.max(26,Math.min(width-26,f.x));f.y=Math.max(26,Math.min(width-26,f.y));const button=buttons.get(f.p.id);button.style.left=f.x+'px';button.style.top=f.y+'px';});
-    const leaders=svg.select('.pin-leaders');
-    leaders.selectAll('line').data(front,f=>f.p.id).join('line').attr('x1',f=>f.anchor[0]).attr('y1',f=>f.anchor[1]).attr('x2',f=>f.x).attr('y2',f=>f.y);
-    leaders.selectAll('circle').data(front,f=>f.p.id).join('circle').attr('cx',f=>f.anchor[0]).attr('cy',f=>f.anchor[1]).attr('r',2);
     root.querySelector('.zoom-level').textContent=zoom<1.05?'World':zoom.toFixed(1)+'×';
     root.querySelector('.zoom-out').disabled=zoom<=1.01;root.querySelector('.zoom-in').disabled=zoom>=3.99;
     const globeMode=zoom<1.05;
