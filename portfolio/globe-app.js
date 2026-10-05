@@ -12,17 +12,21 @@
   const media=__PROJECT_MEDIA__;
   const mappedProjects=projects.filter(p=>p.coords);
   const dialog=root.querySelector('.figure-dialog');
+  const mapParts=Object.fromEntries(['ocean','land','graticule','state-lines','atmosphere','globe-shading','pin-leaders'].map(name=>[name,svg.select('.'+name)]));
+  const mapLabels=Object.fromEntries(['zoom-level','zoom-out','zoom-in','world-view','recent-view','map-view-label','map-place','map-coordinate','map-count'].map(name=>[name,root.querySelector('.'+name)]));
+  const setLabel=(name,value)=>{if(mapLabels[name].textContent!==value)mapLabels[name].textContent=value;};
+  setLabel('map-count',projects.length+' projects');
   const standalone=document.documentElement.dataset.portfolioPage==='true';
   const buttons=new Map(),choices=new Map();
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const saved=window.openai?.widgetState;
   let selected=projects.find(p=>p.id===saved?.modelContent?.project)||projects[0];
   let center=selected.coords?[-selected.coords[0],-selected.coords[1],0]:[-104,-18.5,0];
-  let zoom=1,width=0,radius=0,frame=0,listTimer=0,listLockedUntil=0;
+  let zoom=1,width=0,radius=0,frame=0,drawFrame=0,listTimer=0,listLockedUntil=0;
   let drag=null,pinch=null,gestureMoved=false,gesturePinched=false;
   const pointers=new Map();
   const projection=d3.geoOrthographic().clipAngle(90).precision(.5);
-  const path=d3.geoPath(projection),graticule=d3.geoGraticule().step([30,30])();
+  const path=d3.geoPath(projection).digits(1),graticule=d3.geoGraticule().step([30,30])();
   const normalize=value=>((value+180)%360+360)%360-180;
   const clampZoom=value=>Math.max(1,Math.min(4,value));
   const validRotation=value=>Array.isArray(value)&&value.length===3&&value.every(Number.isFinite);
@@ -62,7 +66,7 @@
   function makeFigurePreview(id){
       const figure=media[id],button=document.createElement('button');button.type='button';button.className='figure-preview';button.dataset.figure=id;button.setAttribute('aria-label','Enlarge '+figure.title);
       if(figure.kind)button.dataset.kind=figure.kind;
-      const img=document.createElement('img');img.src=figure.src;img.alt=figure.alt;img.width=figure.width;img.height=figure.height;
+      const img=document.createElement('img');img.loading='lazy';img.decoding='async';img.src=figure.src;img.alt=figure.alt;img.width=figure.width;img.height=figure.height;
       const label=document.createElement('span');label.textContent=figure.title+' ↗';button.append(img,label);button.addEventListener('click',()=>openFigure(id));
       if(figure.credit){const credit=document.createElement('small');credit.className='figure-credit';credit.textContent=figure.credit;button.append(credit);}
       return button;
@@ -145,35 +149,43 @@
     }
     return front;
   }
+  function requestDraw(){
+    // Pointer events can arrive faster than the display can paint.
+    if(!drawFrame)drawFrame=requestAnimationFrame(()=>{drawFrame=0;draw();});
+  }
   function draw(){
+    if(drawFrame){cancelAnimationFrame(drawFrame);drawFrame=0;}
     radius=width*.415*zoom;projection.rotate(center).scale(radius).translate([width/2,width/2]);
-    svg.select('.ocean').attr('d',path({type:'Sphere'}));svg.select('.land').attr('d',path(land));
-    svg.select('.graticule').attr('d',path(graticule));svg.select('.state-lines').attr('d',zoom>1.4?path(stateBorders):null);
-    svg.select('.atmosphere').attr('cx',width/2).attr('cy',width/2).attr('r',radius+7);
-    svg.select('.globe-shading').attr('cx',width/2).attr('cy',width/2).attr('r',radius);
+    mapParts.ocean.attr('d',path({type:'Sphere'}));mapParts.land.attr('d',path(land));
+    mapParts.graticule.attr('d',path(graticule));mapParts['state-lines'].attr('d',zoom>1.4?path(stateBorders):null);
+    mapParts.atmosphere.attr('cx',width/2).attr('cy',width/2).attr('r',radius+7);
+    mapParts['globe-shading'].attr('cx',width/2).attr('cy',width/2).attr('r',radius);
     const front=placePins(mappedProjects.filter(p=>d3.geoDistance(p.coords,[-center[0],-center[1]])<Math.PI/2-.04).map(p=>{const pos=projection(p.coords);return {p,x:pos[0],y:pos[1],anchorX:pos[0],anchorY:pos[1]};}).filter(f=>f.x>=24&&f.x<=width-24&&f.y>=24&&f.y<=width-24));
     const displaced=front.filter(f=>Math.hypot(f.x-f.anchorX,f.y-f.anchorY)>.5);
-    const leaders=svg.select('.pin-leaders');
+    const leaders=mapParts['pin-leaders'];
     leaders.selectAll('line').data(displaced,f=>f.p.id).join('line').attr('x1',f=>f.anchorX).attr('y1',f=>f.anchorY).attr('x2',f=>f.x).attr('y2',f=>f.y);
     const anchors=[...new Map(displaced.map(f=>[f.p.coords.join(','),f])).values()];
     leaders.selectAll('circle').data(anchors,f=>f.p.coords.join(',')).join('circle').attr('cx',f=>f.anchorX).attr('cy',f=>f.anchorY).attr('r',2);
-    projects.forEach(p=>buttons.get(p.id).hidden=!front.some(f=>f.p===p));
-    front.forEach(f=>{const button=buttons.get(f.p.id);button.style.left=f.x+'px';button.style.top=f.y+'px';});
-    root.querySelector('.zoom-level').textContent=zoom<1.05?'World':zoom.toFixed(1)+'×';
-    root.querySelector('.zoom-out').disabled=zoom<=1.01;root.querySelector('.zoom-in').disabled=zoom>=3.99;
+    const visible=new Set(front.map(f=>f.p.id));
+    projects.forEach(p=>{const button=buttons.get(p.id),hidden=!visible.has(p.id);if(button.hidden!==hidden)button.hidden=hidden;});
+    front.forEach(f=>{buttons.get(f.p.id).style.transform=`translate(${f.x}px,${f.y}px) translate(-50%,-50%)`;});
+    setLabel('zoom-level',zoom<1.05?'World':zoom.toFixed(1)+'×');
+    mapLabels['zoom-out'].disabled=zoom<=1.01;mapLabels['zoom-in'].disabled=zoom>=3.99;
     const globeMode=zoom<1.05;
-    root.querySelector('.world-view').setAttribute('aria-pressed',String(globeMode));
-    root.querySelector('.recent-view').setAttribute('aria-pressed',String(selected.id==='entelligent'&&!globeMode));
-    root.querySelector('.map-view-label').textContent=globeMode?'Globe view':selected.id==='entelligent'?'Recent AI work':'Regional view';
-    root.querySelector('.map-place').textContent=globeMode?'Selected projects':selected.location;
+    for(const [name,pressed] of [['world-view',globeMode],['recent-view',selected.id==='entelligent'&&!globeMode]]){
+      if(mapLabels[name].getAttribute('aria-pressed')!==String(pressed))mapLabels[name].setAttribute('aria-pressed',String(pressed));
+    }
+    setLabel('map-view-label',globeMode?'Globe view':selected.id==='entelligent'?'Recent AI work':'Regional view');
+    setLabel('map-place',globeMode?'Selected projects':selected.location);
     const visibleCenter=[normalize(-center[0]),-center[1]];
     const formatCoordinate=(n,pos,neg)=>Math.abs(n).toFixed(2)+'° '+(n<0?neg:pos);
-    root.querySelector('.map-coordinate').textContent=formatCoordinate(visibleCenter[1],'N','S')+' / '+formatCoordinate(visibleCenter[0],'E','W');
-    root.querySelector('.map-count').textContent=projects.length+' projects';
+    setLabel('map-coordinate',formatCoordinate(visibleCenter[1],'N','S')+' / '+formatCoordinate(visibleCenter[0],'E','W'));
     root.dataset.rotation=center.map(v=>Math.round(v*100)/100).join(',');root.dataset.zoom=zoom.toFixed(3);
   }
   function resize(){
-    width=stage.clientWidth;svg.attr('viewBox',`0 0 ${width} ${width}`);
+    const nextWidth=stage.clientWidth;
+    if(nextWidth===width)return;
+    width=nextWidth;svg.attr('viewBox',`0 0 ${width} ${width}`);
     const last=choices.get(projects.at(-1).id);
     picker.style.setProperty('--list-tail',Math.max(0,picker.clientHeight-last.offsetHeight)+'px');
     draw();followList(false);if(selected.detail==='ai')drawBenchmark();if(selected.publishedScenario)drawScenario();
@@ -262,13 +274,13 @@
   });
   stage.addEventListener('pointermove',event=>{
     if(!pointers.has(event.pointerId))return;pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
-    if(pointers.size===2&&pinch){const [a,b]=[...pointers.values()];zoom=clampZoom(pinch.zoom*Math.hypot(b.x-a.x,b.y-a.y)/pinch.distance);draw();return;}
+    if(pointers.size===2&&pinch){const [a,b]=[...pointers.values()];zoom=clampZoom(pinch.zoom*Math.hypot(b.x-a.x,b.y-a.y)/pinch.distance);requestDraw();return;}
     if(!drag||pointers.size!==1)return;
     const dx=event.clientX-drag.x,dy=event.clientY-drag.y,distance=Math.hypot(dx,dy);
     if(distance>5)gestureMoved=true;
     const exploration=Math.min(1,distance/(width*.28));zoom=drag.zoom+(1-drag.zoom)*exploration;
     const sensitivity=width*.415*Math.sqrt(drag.zoom);
-    center=[drag.rotation[0]+dx/sensitivity*65,Math.max(-60,Math.min(60,drag.rotation[1]-dy/sensitivity*65)),0];draw();
+    center=[drag.rotation[0]+dx/sensitivity*65,Math.max(-60,Math.min(60,drag.rotation[1]-dy/sensitivity*65)),0];requestDraw();
   });
   const finish=event=>{
     if(!pointers.has(event.pointerId))return;pointers.delete(event.pointerId);
@@ -285,5 +297,5 @@
     if(project){selected=project;updateCard();followList(false);}
     if(validRotation(incoming?.privateContent?.rotation)){cancelAnimationFrame(frame);center=incoming.privateContent.rotation;if(Number.isFinite(incoming.privateContent.zoom))zoom=clampZoom(incoming.privateContent.zoom);draw();}
   });
-  updateCard();new ResizeObserver(resize).observe(stage);resize();followList(false);
+  updateCard();new ResizeObserver(resize).observe(stage);resize();
 })();

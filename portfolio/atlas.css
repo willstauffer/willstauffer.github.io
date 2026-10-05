@@ -37,7 +37,7 @@
 #will-project-globe .pin-leaders{pointer-events:none;}
 #will-project-globe .pin-leaders line{stroke:var(--ink);stroke-width:1;opacity:.6;}
 #will-project-globe .pin-leaders circle{fill:var(--ink);}
-#will-project-globe .map-pin{position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;padding:0;border:0;background:transparent;pointer-events:auto;display:grid;place-items:center;}
+#will-project-globe .map-pin{position:absolute;left:0;top:0;transform:translate(-50%,-50%);width:46px;height:46px;padding:0;border:0;background:transparent;pointer-events:auto;display:grid;place-items:center;}
 #will-project-globe .pin-dot{display:block;width:16px;height:16px;border-radius:50%;background:var(--pin);border:2px solid var(--paper);box-shadow:0 2px 0 var(--shade);}
 #will-project-globe .map-pin[aria-pressed=true] .pin-dot{width:20px;height:20px;outline:1.5px solid var(--ink);outline-offset:4px;}
 #will-project-globe .map-corner{position:absolute;z-index:2;pointer-events:none;font:11px/1.5 monospace;color:var(--subtle);background:var(--paper);padding:4px 7px;}

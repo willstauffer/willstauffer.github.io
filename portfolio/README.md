@@ -19,7 +19,7 @@ python3 build_globe.py
 python3 -m http.server 8863 --bind 127.0.0.1 --directory dist
 ```
 
-Open `http://127.0.0.1:8863/project-globe.html`. Keep `dist/assets` beside the page to view full-size figures. Film playback uses YouTube and Vimeo and requires an internet connection.
+Open `http://127.0.0.1:8863/project-globe.html`. Keep `dist/assets` beside the page: it contains the scripts, image previews, and full-size figures. Film playback uses YouTube and Vimeo and requires an internet connection.
 
 To choose another destination:
 
@@ -69,3 +69,7 @@ All five figures displayed on the previous website are included both in their pr
 ## Publication security
 
 The standalone page uses a Content Security Policy with hashes for its three bundled scripts, local/data images, and only YouTube and Vimeo frames. Browser data requests, plugins, forms, and base URL overrides are blocked. Inline styles remain allowed for D3 layout. The build escapes JSON for HTML script embedding and validates HTTPS project links and video IDs. External links use noopener/noreferrer. No credentials or analytics are included.
+
+## Loading and interaction performance
+
+The website loads three deferred scripts with content-hashed filenames and integrity checks. Image previews load lazily from separate WebP files; original figures remain unchanged. The optional inline artifact remains self-contained. Keep previously deployed hashed assets available so cached HTML continues to work. Drag and pinch rendering is coalesced to animation frames, marker movement uses transforms, and unchanged map labels and resize notifications skip unnecessary work. SVG paths use one decimal place, within 0.05 CSS pixels per coordinate.

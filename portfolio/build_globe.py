@@ -71,13 +71,28 @@ assets = output_dir / 'assets'
 assets.mkdir(exist_ok=True)
 for filename in [figure['original'] for figure in media.values()]:
     shutil.copy2(source_dir / 'originals' / filename, assets / filename)
+# Keep the inline artifact self-contained, but let the website cache and lazily
+# download its previews instead of embedding every image in the first response.
+for name in [*media, 'profile']:
+    data = (source_dir / 'media' / (name + '.webp')).read_bytes()
+    filename = 'preview-' + name + '-' + hashlib.sha256(data).hexdigest()[:12] + '.webp'
+    (assets / filename).write_bytes(data)
+    text = text.replace('data:image/webp;base64,' + base64.b64encode(data).decode(), 'assets/' + filename)
+script_hashes = []
+for name, script in zip(['d3', 'topojson', 'app'], re.findall(r'<script>(.*?)</script>', text, re.S), strict=True):
+    data = script.encode()
+    digest = hashlib.sha256(data)
+    integrity = 'sha256-' + base64.b64encode(digest.digest()).decode()
+    filename = 'atlas-' + name + '-' + digest.hexdigest()[:12] + '.js'
+    (assets / filename).write_bytes(data)
+    text = text.replace('<script>' + script + '</script>', '<script defer src="assets/' + filename + '" integrity="' + integrity + '"></script>', 1)
+    script_hashes.append("'" + integrity + "'")
 output = output_dir / 'project-globe.html'
 document = '''<!doctype html>
 <html lang="en" data-portfolio-page="true">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Will Stauffer: environmental data science and AI for climate, carbon removal, water, and energy."><title>Will Stauffer | Environmental data science &amp; AI</title>
 <style>:root{color-scheme:light dark}body{margin:0;padding:24px;background:light-dark(#edece3,#182019)}@media(max-width:620px){body{padding:0}}</style></head><body>'''
-script_hashes = ' '.join("'sha256-" + base64.b64encode(hashlib.sha256(script.encode()).digest()).decode() + "'" for script in re.findall(r'<script>(.*?)</script>', text, re.S))
-policy = "default-src 'none'; script-src " + script_hashes + "; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://player.vimeo.com; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"
+policy = "default-src 'none'; script-src " + ' '.join(script_hashes) + "; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://player.vimeo.com; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"
 document = document.replace('<head>', '<head><meta http-equiv="Content-Security-Policy" content="' + policy + '"><meta name="referrer" content="strict-origin-when-cross-origin">')
 output.write_text(document + text + '\n</body></html>')
-print('Created self-contained globe:', output.stat().st_size, 'bytes')
+print('Created globe page and cacheable assets:', output.stat().st_size, 'HTML bytes')
