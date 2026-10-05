@@ -125,22 +125,40 @@
     const extent=Math.max(...neighbors.flatMap(p=>unit(p.coords).map(Math.abs)),.05);
     return {rotation:[-centroid[0],-centroid[1],0],zoom:Math.max(1,Math.min(3.2,.30/(.415*extent)))};
   }
+  function placePins(front){
+    // Only separate overlapping click targets. Keep the geographic anchor fixed.
+    const gap=48,margin=24;
+    for(let iteration=0;iteration<60;iteration++){
+      let overlap=false;
+      for(let a=0;a<front.length;a++)for(let b=a+1;b<front.length;b++){
+        let dx=front[b].x-front[a].x,dy=front[b].y-front[a].y,distance=Math.hypot(dx,dy);
+        if(distance<gap-.01){
+          overlap=true;
+          if(distance<.01){dx=1;dy=0;distance=1;}
+          const shift=(gap-distance)/2;
+          front[a].x-=dx/distance*shift;front[a].y-=dy/distance*shift;
+          front[b].x+=dx/distance*shift;front[b].y+=dy/distance*shift;
+        }
+      }
+      front.forEach(f=>{f.x=Math.max(margin,Math.min(width-margin,f.x));f.y=Math.max(margin,Math.min(width-margin,f.y));});
+      if(!overlap)break;
+    }
+    return front;
+  }
   function draw(){
     radius=width*.415*zoom;projection.rotate(center).scale(radius).translate([width/2,width/2]);
     svg.select('.ocean').attr('d',path({type:'Sphere'}));svg.select('.land').attr('d',path(land));
     svg.select('.graticule').attr('d',path(graticule));svg.select('.state-lines').attr('d',zoom>1.4?path(stateBorders):null);
     svg.select('.atmosphere').attr('cx',width/2).attr('cy',width/2).attr('r',radius+7);
     svg.select('.globe-shading').attr('cx',width/2).attr('cy',width/2).attr('r',radius);
-    const front=mappedProjects.filter(p=>d3.geoDistance(p.coords,[-center[0],-center[1]])<Math.PI/2-.04).map(p=>{const pos=projection(p.coords);return {p,x:pos[0],y:pos[1]};}).filter(f=>f.x>=24&&f.x<=width-24&&f.y>=24&&f.y<=width-24);
-    for(let iteration=0;iteration<40;iteration++){
-      for(let a=0;a<front.length;a++)for(let b=a+1;b<front.length;b++){
-      let dx=front[b].x-front[a].x,dy=front[b].y-front[a].y,distance=Math.hypot(dx,dy);
-      if(distance<68){if(distance<.01){dx=0;dy=1;distance=1;}const shift=(68-distance)/2;front[a].x-=dx/distance*shift;front[a].y-=dy/distance*shift;front[b].x+=dx/distance*shift;front[b].y+=dy/distance*shift;}
-      }
-      front.forEach(f=>{f.x=Math.max(26,Math.min(width-26,f.x));f.y=Math.max(26,Math.min(width-26,f.y));});
-    }
+    const front=placePins(mappedProjects.filter(p=>d3.geoDistance(p.coords,[-center[0],-center[1]])<Math.PI/2-.04).map(p=>{const pos=projection(p.coords);return {p,x:pos[0],y:pos[1],anchorX:pos[0],anchorY:pos[1]};}).filter(f=>f.x>=24&&f.x<=width-24&&f.y>=24&&f.y<=width-24));
+    const displaced=front.filter(f=>Math.hypot(f.x-f.anchorX,f.y-f.anchorY)>.5);
+    const leaders=svg.select('.pin-leaders');
+    leaders.selectAll('line').data(displaced,f=>f.p.id).join('line').attr('x1',f=>f.anchorX).attr('y1',f=>f.anchorY).attr('x2',f=>f.x).attr('y2',f=>f.y);
+    const anchors=[...new Map(displaced.map(f=>[f.p.coords.join(','),f])).values()];
+    leaders.selectAll('circle').data(anchors,f=>f.p.coords.join(',')).join('circle').attr('cx',f=>f.anchorX).attr('cy',f=>f.anchorY).attr('r',2);
     projects.forEach(p=>buttons.get(p.id).hidden=!front.some(f=>f.p===p));
-    front.forEach(f=>{f.x=Math.max(26,Math.min(width-26,f.x));f.y=Math.max(26,Math.min(width-26,f.y));const button=buttons.get(f.p.id);button.style.left=f.x+'px';button.style.top=f.y+'px';});
+    front.forEach(f=>{const button=buttons.get(f.p.id);button.style.left=f.x+'px';button.style.top=f.y+'px';});
     root.querySelector('.zoom-level').textContent=zoom<1.05?'World':zoom.toFixed(1)+'×';
     root.querySelector('.zoom-out').disabled=zoom<=1.01;root.querySelector('.zoom-in').disabled=zoom>=3.99;
     const globeMode=zoom<1.05;
