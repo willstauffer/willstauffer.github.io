@@ -48,7 +48,7 @@ This source package contains no hosting credentials. Building creates local file
 - **Fire, wood, and a wilderness river**: the University of Idaho's [2010 station annual report](https://objects.lib.uidaho.edu/taylorarchive/b3-TWRS_PositionReports-076.pdf) names Will and his research on fire intensity and large woody debris distribution in the Big Creek watershed (PDF pages 6 and 10). The pin is the research station, using [University of Idaho Library coordinates](https://harvester.lib.uidaho.edu/collection/items/lumber2524.html). No research findings or funding attribution are inferred.
 - The Colorado expedition description now identifies its State of the Rockies connection, documented in [Zak Podmore's NRS story](https://community.nrs.com/duct-tape/2012/10/01/the-end-of-a-river-a-source-to-sea-journey-down-the-colorado-river/).
 
-The current AI project remains the opening selection. There are 17 projects in the index.
+The current AI project remains the opening selection. There are 19 projects in the index.
 
 ## October 4 positioning
 
@@ -73,3 +73,7 @@ The standalone page uses a Content Security Policy with hashes for its three bun
 ## Loading and interaction performance
 
 The website loads three deferred scripts with content-hashed filenames and integrity checks. Image previews load lazily from separate WebP files; original figures remain unchanged. The optional inline artifact remains self-contained. Keep previously deployed hashed assets available so cached HTML continues to work. Drag and pinch rendering is coalesced to animation frames, marker movement uses transforms, and unchanged map labels and resize notifications skip unnecessary work. SVG paths use one decimal place, within 0.05 CSS pixels per coordinate.
+
+## Bay Area work
+
+Plenty and Oru Kayak were added at Will’s request. Both use a shared San Francisco regional anchor for Bay Area work, not an office or filming address. Plenty’s agtech storytelling role was already established in the portfolio biography. Oru’s specific role, project dates, and any Kickstarter attribution remain unconfirmed, so the card uses a brief general description. Company links provide background; they do not establish personal authorship of every company output.

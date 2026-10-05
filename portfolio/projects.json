@@ -244,6 +244,50 @@
     ]
   },
   {
+    "id": "plenty",
+    "area": "usa",
+    "location": "San Francisco Bay Area",
+    "region": "Plenty",
+    "coords": [
+      -122.4194,
+      37.7749
+    ],
+    "category": "Agtech + visual storytelling",
+    "title": "Plenty",
+    "description": "Visual storytelling for Plenty, an indoor farming company connecting food, agriculture, and technology.",
+    "status": "Agtech storytelling",
+    "date": "Earlier work",
+    "media": [],
+    "links": [
+      {
+        "label": "Explore Plenty",
+        "url": "https://www.plenty.ag/"
+      }
+    ]
+  },
+  {
+    "id": "oru",
+    "area": "usa",
+    "location": "San Francisco Bay Area",
+    "region": "Oru Kayak",
+    "coords": [
+      -122.4194,
+      37.7749
+    ],
+    "category": "Outdoor products",
+    "title": "Oru Kayak",
+    "description": "Work with Oru Kayak, the folding-kayak company, in the San Francisco Bay Area.",
+    "status": "Bay Area work",
+    "date": "Earlier work",
+    "media": [],
+    "links": [
+      {
+        "label": "Explore Oru Kayak",
+        "url": "https://www.orukayak.com/"
+      }
+    ]
+  },
+  {
     "id": "colombia",
     "area": "south-america",
     "location": "Colombia",
