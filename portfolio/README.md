@@ -76,4 +76,4 @@ The website loads three deferred scripts with content-hashed filenames and integ
 
 ## Bay Area work
 
-Plenty and Oru Kayak were added at Will’s request. Both use a shared San Francisco regional anchor for Bay Area work, not an office or filming address. Plenty’s agtech storytelling role was already established in the portfolio biography. Oru’s specific role, project dates, and any Kickstarter attribution remain unconfirmed, so the card uses a brief general description. Company links provide background; they do not establish personal authorship of every company output.
+Plenty and Oru Kayak were added at Will’s request. Both use a shared San Francisco regional anchor for Bay Area work, not an office or filming address. Plenty’s agtech storytelling role was already established in the portfolio biography. Will confirmed that Oru Kayak was the $1M+ Kickstarter campaign on his résumé: he created the film and helped with marketing. Exact project dates remain unspecified. Company links provide background; they do not establish personal authorship of every company output.
