@@ -79,7 +79,7 @@
       if(figure.credit){const credit=document.createElement('small');credit.className='figure-credit';credit.textContent=figure.credit;button.append(credit);}
       return button;
   }
-  ['river-runoff','divestment','backtest','scenarios','enroads','rivers_fyi'].forEach(id=>root.querySelector('.figure-index').append(makeFigurePreview(id)));
+  ['divestment','backtest','scenarios','enroads','river-runoff','rivers_fyi'].forEach(id=>root.querySelector('.figure-index').append(makeFigurePreview(id)));
   function openFigure(id){
     const figure=media[id];dialog.querySelector('h2').textContent=figure.title;
     const image=dialog.querySelector('img');image.src=standalone?'assets/'+figure.original:figure.src;image.alt=figure.alt;

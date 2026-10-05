@@ -211,10 +211,10 @@
       -115.62,
       44.08
     ],
-    "category": "Machine learning + river flow",
+    "category": "Bootcamp project + time series",
     "title": "rivers.fyi",
-    "description": "Built a river-flow forecasting app with USGS and NOAA data and an LSTM trained on 30+ years of records. The important question: could it anticipate the rapid rises that matter on a river?",
-    "status": "Personal forecasting project · 2020",
+    "description": "A short coding bootcamp project exploring river-flow forecasting with USGS and NOAA data and an LSTM. Built a simple app to display predictions.",
+    "status": "Coding bootcamp project · 2020",
     "media": [
       "river-runoff",
       "rivers_fyi"
@@ -236,7 +236,7 @@
         "One-day lead time; trained on 1987–2015 and evaluated on 2016–2020."
       ],
       [
-        "Judgment",
+        "What I learned",
         "The model followed the broad pattern but lagged sharp rises. Overall fit alone did not tell the whole story."
       ]
     ]
