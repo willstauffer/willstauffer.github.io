@@ -61,25 +61,6 @@
     ]
   },
   {
-    "id": "cdr",
-    "area": "global",
-    "location": "Global",
-    "region": "CDR.fyi",
-    "coords": null,
-    "category": "Forecasting + carbon removal",
-    "title": "How much carbon can we remove?",
-    "description": "Completed a forecasting project assessing durable carbon-removal deployment against climate targets.",
-    "status": "Data science consulting · 2024",
-    "media": [],
-    "links": [
-      {
-        "label": "Explore CDR.fyi",
-        "url": "https://www.cdr.fyi/"
-      }
-    ],
-    "date": "2024"
-  },
-  {
     "id": "columbia",
     "area": "usa",
     "location": "Columbia River",
@@ -201,6 +182,25 @@
       "figure": 10,
       "page": 14
     }
+  },
+  {
+    "id": "cdr",
+    "area": "global",
+    "location": "Global",
+    "region": "CDR.fyi",
+    "coords": null,
+    "category": "Short project + carbon removal",
+    "title": "Exploring carbon-removal deployment",
+    "description": "A brief forecasting project with CDR.fyi exploring durable carbon-removal deployment against climate targets. An introduction to working in carbon removal.",
+    "status": "Short exploratory project · 2024",
+    "media": [],
+    "links": [
+      {
+        "label": "Explore CDR.fyi",
+        "url": "https://www.cdr.fyi/"
+      }
+    ],
+    "date": "2024"
   },
   {
     "id": "idaho",
