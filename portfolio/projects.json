@@ -10,16 +10,18 @@
     ],
     "category": "Data science + AI workflows",
     "title": "Building climate-risk products with AI",
-    "description": "At Entelligent, I developed and delivered SAFE for AMRO. I also improved how we built climate-risk products, using parallel agents, automated validation, and years of context in the codebase.",
+    "description": "At Entelligent, I develop financial and emissions models, build validation tools, and improve delivery workflows using AI-assisted development. Our modeling was delivered through Criat to AMRO.",
     "status": "Entelligent · October 2025–present",
-    "media": [],
+    "media": [
+      "safe-financials"
+    ],
     "links": [],
     "date": "2025–now",
     "detail": "ai",
     "related": [
       {
         "id": "singapore",
-        "label": "SAFE: credit risk across 30,000+ companies"
+        "label": "Explore SAFE/EDR model outputs"
       }
     ]
   },
@@ -27,30 +29,34 @@
     "id": "singapore",
     "area": "asia",
     "location": "Singapore",
-    "region": "AMRO · ASEAN+3",
+    "region": "Criat → AMRO",
     "coords": [
       103.85,
       1.3
     ],
     "category": "Data science + climate risk",
     "title": "Climate-related credit risk",
-    "description": "Developed and delivered SAFE for AMRO, the economic and financial policy organization serving ASEAN+3. The product models climate-related credit risk across 30,000+ public companies.",
+    "description": "Financial and emissions projections from Entelligent’s SAFE/EDR product. I contributed to modeling, validation, scenario updates, and delivery workflows for work delivered through Criat to AMRO.",
     "status": "Entelligent · October 2025–present",
-    "media": [],
+    "media": [
+      "safe-financials",
+      "safe-emissions",
+      "safe-income-components"
+    ],
     "links": [],
     "date": "2025–now",
     "facts": [
       [
         "Build",
-        "Financial and emissions models in Python."
+        "Financial and emissions models under climate-transition scenarios."
       ],
       [
         "Check",
-        "Automated validation of client climate-risk reports."
+        "Validation notebooks used regularly to inspect model outputs and delivery changes."
       ],
       [
         "Deliver",
-        "Model results for an institutional client."
+        "Climate-risk modeling delivered to Criat for its credit-risk model for AMRO."
       ]
     ],
     "related": [

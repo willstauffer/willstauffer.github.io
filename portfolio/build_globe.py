@@ -40,6 +40,9 @@ for project in projects:
             raise ValueError('Invalid video provider or ID')
 text = text.replace('__PROJECT_DATA__', script_json(projects))
 definitions = {
+    'safe-financials': ('How climate scenarios change financial projections', 'SAFE/EDR output comparing assets, liabilities, and net income under Current Policies, NDC, and Net Zero 2050, alongside historical values.', 'SAFE/EDR product output from Entelligent. Assets, liabilities, and net income follow different paths under Current Policies, NDC, and Net Zero 2050 (net zero by 2050). NDC refers to nationally determined contributions. Historical values are gray; colored lines show scenario projections. My work contributed to financial and emissions modeling, validation, and delivery workflows. Screenshot supplied October 2026.', 2692, 1728),
+    'safe-emissions': ('Emissions pathways across three scopes', 'SAFE/EDR output showing Scope 1, Scope 2, and Scope 3 emissions, with actual and estimated history and projections under three climate scenarios.', 'SAFE/EDR product output from Entelligent. Scope 1, 2, and 3 emissions are shown under Current Policies, NDC, and Net Zero 2050. Solid and dotted gray lines distinguish actual and estimated history. In this output, Net Zero 2050 produces a declining emissions pathway across all three scopes. Screenshot supplied October 2026.', 2718, 2250),
+    'safe-income-components': ('What drives the net income adjustment?', 'SAFE/EDR stacked area charts comparing carbon expense, profit reduction, T-Risk premium, and stranded net income adjustments under NDC and Net Zero 2050.', 'SAFE/EDR product output from Entelligent. The stacked components show how carbon expense, profit reduction, T-Risk premium, and stranded net income contribute to the modeled net income adjustment. The dotted line is the total adjustment. NDC and Net Zero 2050 are compared side by side. Screenshot supplied October 2026.', 2704, 1532),
     'river-runoff': ('River forecast: observed vs. predicted', 'Observed and one-day-ahead predicted South Fork Payette flow during spring runoff in 2019. The prediction lags a sharp rise.', 'A short coding bootcamp experiment from 2020: observed flow (blue) and one-day-ahead predictions (red), in cubic feet per second. The broad runoff pattern looks convincing, but the sharp rise exposes a timing error. That limitation is why I looked beyond the overall model score. Source: Will Stauffer-Norris, September 2020 river-forecasting writeup.', 1400, 401),
     'divestment': ('Portfolio emissions before and after divestment', 'UN pension fund figures comparing annual portfolio emissions and sector contributions before and after divestment.', 'Figures I created for the UN Joint Staff Pension Fund’s 2021 TCFD report. Source: Entelligent / UNJSPF.', 827, 1200),
     'scenarios': ('Two climate futures', 'CO2 emissions and temperature projections under business-as-usual and Paris-aligned climate scenarios.', 'EnROADS climate scenarios used in our climate scenario analysis. Source: Entelligent / Climate Interactive.', 1200, 637),
@@ -50,8 +53,11 @@ definitions = {
 }
 media = {}
 for name, (title, alt, caption, width, height) in definitions.items():
-    encoded = base64.b64encode((source_dir / 'media' / (name + '.webp')).read_bytes()).decode()
-    media[name] = dict(title=title, alt=alt, caption=caption, width=width, height=height, src='data:image/webp;base64,'+encoded, original=name+'.png')
+    extension = 'png' if (source_dir / 'media' / (name + '.png')).exists() else 'webp'
+    encoded = base64.b64encode((source_dir / 'media' / (name + '.' + extension)).read_bytes()).decode()
+    media[name] = dict(title=title, alt=alt, caption=caption, width=width, height=height, src='data:image/'+extension+';base64,'+encoded, original=name+'.png')
+for name in ['safe-financials', 'safe-emissions', 'safe-income-components']:
+    media[name]['credit'] = 'Entelligent · SAFE/EDR product output'
 media['river-runoff']['credit'] = 'Coding bootcamp experiment · 2020'
 media['energy-returns']['credit'] = 'Published Entelligent research · 2021'
 media['energy-returns']['originalUrl'] = 'https://www.entelligent.com/wp-content/uploads/2021/04/Energy-Climate-Transition-Risk-for-Equities.pdf#page=7'
@@ -65,7 +71,7 @@ for name, (title, alt, caption, width, height, original_url) in photos.items():
 text = text.replace('__PROJECT_MEDIA__', script_json(media))
 portrait = base64.b64encode((source_dir / 'media/profile.webp').read_bytes()).decode()
 text = text.replace('__PROFILE_MEDIA__', 'data:image/webp;base64,'+portrait)
-assert len(text.encode()) < 2_000_000
+assert len(text.encode()) < 4_000_000
 assert '\u2014' not in text
 if args.inline_output:
     args.inline_output.write_text(text)
@@ -77,10 +83,11 @@ for filename in [figure['original'] for figure in media.values()]:
 # Keep the inline artifact self-contained, but let the website cache and lazily
 # download its previews instead of embedding every image in the first response.
 for name in [*media, 'profile']:
-    data = (source_dir / 'media' / (name + '.webp')).read_bytes()
-    filename = 'preview-' + name + '-' + hashlib.sha256(data).hexdigest()[:12] + '.webp'
+    extension = 'png' if (source_dir / 'media' / (name + '.png')).exists() else 'webp'
+    data = (source_dir / 'media' / (name + '.' + extension)).read_bytes()
+    filename = 'preview-' + name + '-' + hashlib.sha256(data).hexdigest()[:12] + '.' + extension
     (assets / filename).write_bytes(data)
-    text = text.replace('data:image/webp;base64,' + base64.b64encode(data).decode(), 'assets/' + filename)
+    text = text.replace('data:image/'+extension+';base64,' + base64.b64encode(data).decode(), 'assets/' + filename)
 script_hashes = []
 for name, script in zip(['d3', 'topojson', 'app'], re.findall(r'<script>(.*?)</script>', text, re.S), strict=True):
     data = script.encode()
