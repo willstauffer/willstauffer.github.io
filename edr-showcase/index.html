@@ -240,12 +240,15 @@ function draw(){
   ctx.strokeStyle="rgba(255,255,255,.07)"; ctx.lineWidth=1;
   [0.16,0.44,0.72,1].forEach(function(k){ ctx.beginPath(); ctx.arc(G.cx,G.cy,G.R*k,0,Math.PI*2); ctx.stroke(); });
   // sector spokes + labels
-  ctx.font="12px \"IBM Plex Sans\", system-ui, sans-serif"; ctx.fillStyle="#8c8b84"; ctx.textBaseline="middle";
+  ctx.font=(G.w<400?"10px":"12px")+" \"IBM Plex Sans\", system-ui, sans-serif"; ctx.fillStyle="#8c8b84"; ctx.textBaseline="middle";
   SECTORS.forEach(function(s,i){
     var a=i/SECTORS.length*Math.PI*2;
     ctx.beginPath(); ctx.moveTo(G.cx+Math.cos(a)*G.R*0.12,G.cy+Math.sin(a)*G.R*0.12); ctx.lineTo(G.cx+Math.cos(a)*G.R*1.02,G.cy+Math.sin(a)*G.R*1.02); ctx.stroke();
     var am=(i+0.5)/SECTORS.length*Math.PI*2, lx=G.cx+Math.cos(am)*(G.R+22), ly=G.cy+Math.sin(am)*(G.R+22);
     ctx.textAlign = Math.abs(Math.cos(am))<0.25 ? "center" : (Math.cos(am)>0 ? "left":"right");
+    var labelWidth=ctx.measureText(s.n).width;
+    if(ctx.textAlign==="left")lx=Math.min(lx,G.w-labelWidth-4);
+    else if(ctx.textAlign==="right")lx=Math.max(lx,labelWidth+4);
     ctx.fillText(s.n,lx,ly);
   });
   ctx.textAlign="center"; ctx.fillStyle="#6b6a64"; ctx.font="11px \"IBM Plex Mono\", ui-monospace, monospace";
