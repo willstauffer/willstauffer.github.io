@@ -243,11 +243,15 @@
     };
     frame=requestAnimationFrame(tick);
   }
-  function selectProject(project,{source='pin',animate=true,historyMode='replace'}={}){
+  function selectProject(project,{source='pin',animate=true,historyMode=source==='scroll'?'replace':'push'}={}){
     selected=project;updateCard();if(source!=='scroll')followList(animate);
     if(standalone&&historyMode!=='none'&&window.location.hash!=='#project='+project.id)history[historyMode==='push'?'pushState':'replaceState'](null,'','#project='+project.id);
     moveCamera(regionalCamera(project),{animate,travel:true});
-    if(matchMedia('(max-width: 660px)').matches&&['pin','list','recent','link'].includes(source))root.querySelector('.project-card').scrollIntoView({block:'start',behavior:animate&&!reduced.matches?'smooth':'instant'});
+    if(matchMedia('(max-width: 660px)').matches&&['pin','list','recent','link','history'].includes(source)){
+      const showCard=()=>root.querySelector('.project-card').scrollIntoView({block:'start',behavior:animate&&!reduced.matches?'smooth':'instant'});
+      // History restores the old scroll position after popstate; reveal the card afterward.
+      if(source==='history')requestAnimationFrame(showCard);else showCard();
+    }
   }
   projects.forEach((project,index)=>{
     const pin=document.createElement('button');pin.type='button';pin.className='map-pin';pin.dataset.project=project.id;pin.setAttribute('aria-label','Open '+project.title+' in '+project.location);pin.title=project.title+' · '+project.location;
