@@ -175,7 +175,7 @@ SECTORS.forEach(function(s,si){
   for(var i=0;i<n;i++){
     var I=Math.max(3,Math.min(8800,s.I*Math.exp(0.75*gauss())));
     var mv=Math.exp(1.1*gauss());
-    cos.push({s:si,I:I,m:Math.max(.02,s.m*(0.55+0.9*rnd())),mv:mv,reg:Math.floor(rnd()*11),
+    cos.push({id:cos.length+1,s:si,I:I,m:Math.max(.02,s.m*(0.55+0.9*rnd())),mv:mv,reg:Math.floor(rnd()*11),
       a:(si+0.5)/SECTORS.length*Math.PI*2 + (rnd()-0.5)*(Math.PI*2/SECTORS.length)*0.78,
       rr:(Math.log(I)-logMin)/(logMax-logMin), jit:(rnd()-0.5)*0.06, cur:0, tgt:0, tw:rnd()*Math.PI*2});
   }
@@ -261,7 +261,7 @@ cv.addEventListener("mousemove",function(e){
   if(best!==hoverIdx){ hoverIdx=best; draw(); }
   if(best>=0){
     var c=cos[best], pr=c.tgt>=1?"profit wiped out":Math.round(c.tgt*100)+"% profit reduction";
-    showTip("<b>Synthetic company</b><br><span class='m'>"+SECTORS[c.s].n+" · "+Math.round(c.I).toLocaleString()+" t CO2e per $M revenue</span><br>"+pr+" in "+state.year,e.clientX,e.clientY,true);
+    showTip("<b>Synthetic company "+String(c.id).padStart(4,"0")+"</b><br><span class='m'>"+SECTORS[c.s].n+" · "+Math.round(c.I).toLocaleString()+" t CO2e per $M revenue</span><br>"+pr+" in "+state.year,e.clientX,e.clientY,true);
   } else hideTip();
 });
 cv.addEventListener("mouseleave",function(){ hoverIdx=-1; hideTip(); draw(); });
