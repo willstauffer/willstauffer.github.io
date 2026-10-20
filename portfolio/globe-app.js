@@ -17,6 +17,8 @@
   const setLabel=(name,value)=>{if(mapLabels[name].textContent!==value)mapLabels[name].textContent=value;};
   setLabel('map-count',projects.length+' projects');
   const standalone=document.documentElement.dataset.portfolioPage==='true';
+  // Project cards change height; browser scroll restoration can hide the selected card.
+  if(standalone&&'scrollRestoration' in history)history.scrollRestoration='manual';
   const buttons=new Map(),choices=new Map();
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const saved=window.openai?.widgetState;
