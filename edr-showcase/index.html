@@ -25,7 +25,7 @@
   --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
   --accent:#2a78d6;
   --hero:#0f1115; --hero-ink:#ffffff; --hero-ink2:#c3c2b7; --hero-muted:#8c8b84; --hero-ring:rgba(255,255,255,.12);
-  --strand:#d95926;
+  --strand:#ee5a5a;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -82,7 +82,7 @@ button{font:inherit}
 .stat .v{font-family:var(--f-data);font-size:30px;font-weight:680;letter-spacing:-.01em}
 .stat .l{font-size:13px;color:var(--hero-ink2)}
 .legend-h{display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--hero-ink2)}
-.rampbar{height:10px;border-radius:5px;background:linear-gradient(90deg,#184f95,#2a78d6,#6da7ec,#b7d3f6,#ffffff)}
+.rampbar{height:10px;border-radius:5px;background:linear-gradient(90deg,#b7e4a8,#d9ed92,#ffe08a,#f99b62,#ee5a5a)}
 .rampticks{font-family:var(--f-data);display:flex;justify-content:space-between;font-size:11px;color:var(--hero-muted)}
 .strand-key{display:flex;align-items:center;gap:8px}
 .strand-key i{width:12px;height:12px;border-radius:50%;border:2px solid var(--strand);display:inline-block}
@@ -109,7 +109,7 @@ body{background:var(--hero)}
 
     <div class="galaxy-shell">
       <div class="galaxy" id="galaxy">
-        <canvas id="gcanvas" role="img" aria-label="Synthetic universe of companies arranged by sector. Color shows projected profit reduction under the selected scenario and year; orange rings mark companies whose profits are wiped out."></canvas>
+        <canvas id="gcanvas" role="img" aria-label="Synthetic universe of companies arranged by sector. Color shows projected profit reduction under the selected scenario and year; red rings mark companies whose profits are wiped out."></canvas>
       </div>
       <div class="panel">
         <div>
@@ -203,7 +203,7 @@ function recompute(){
   if(reduceMotion) cos.forEach(function(c){c.cur=c.tgt;});
   kick();
 }
-var RAMP=[[0x18,0x4f,0x95],[0x2a,0x78,0xd6],[0x6d,0xa7,0xec],[0xb7,0xd3,0xf6],[0xff,0xff,0xff]];
+var RAMP=[[0xb7,0xe4,0xa8],[0xd9,0xed,0x92],[0xff,0xe0,0x8a],[0xf9,0x9b,0x62],[0xee,0x5a,0x5a]];
 function rampColor(v){
   v=Math.max(0,Math.min(1,v))*(RAMP.length-1); var i=Math.min(RAMP.length-2,Math.floor(v)), t=v-i, a=RAMP[i], b=RAMP[i+1];
   return "rgb("+Math.round(a[0]+(b[0]-a[0])*t)+","+Math.round(a[1]+(b[1]-a[1])*t)+","+Math.round(a[2]+(b[2]-a[2])*t)+")";
@@ -241,7 +241,7 @@ function draw(){
   for(var k=0;k<cos.length;k++){
     var c=cos[k];
     if(c.cur>=0.995){
-      ctx.beginPath(); ctx.arc(c.x,c.y,c.size+0.6,0,Math.PI*2); ctx.lineWidth=1.6; ctx.strokeStyle="#d95926"; ctx.globalAlpha=0.95; ctx.stroke(); ctx.globalAlpha=1;
+      ctx.beginPath(); ctx.arc(c.x,c.y,c.size+0.6,0,Math.PI*2); ctx.lineWidth=1.6; ctx.strokeStyle="#ee5a5a"; ctx.globalAlpha=0.95; ctx.stroke(); ctx.globalAlpha=1;
     } else {
       ctx.beginPath(); ctx.arc(c.x,c.y,c.size,0,Math.PI*2); ctx.fillStyle=rampColor(c.cur); ctx.globalAlpha=0.55+0.45*c.cur; ctx.fill(); ctx.globalAlpha=1;
     }
