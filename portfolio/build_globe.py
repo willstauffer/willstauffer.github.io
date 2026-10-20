@@ -34,7 +34,7 @@ for project in projects:
         url = urlparse(link['url'])
         if url.scheme != 'https' or not url.netloc or url.username or url.password:
             raise ValueError('Project links must use public HTTPS URLs')
-    if project.get('interactive') not in (None, '/edr-showcase/?embed=1'):
+    if project.get('interactive') not in (None, '/edr-showcase/?embed=1&v=2'):
         raise ValueError('Unknown interactive project URL')
     if video := project.get('video'):
         pattern = {'youtube': r'[A-Za-z0-9_-]{11}', 'vimeo': r'[0-9]+'}.get(video['provider'])
