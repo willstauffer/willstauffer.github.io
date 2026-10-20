@@ -34,6 +34,8 @@ for project in projects:
         url = urlparse(link['url'])
         if url.scheme != 'https' or not url.netloc or url.username or url.password:
             raise ValueError('Project links must use public HTTPS URLs')
+    if project.get('interactive') not in (None, '/edr-showcase/?embed=1'):
+        raise ValueError('Unknown interactive project URL')
     if video := project.get('video'):
         pattern = {'youtube': r'[A-Za-z0-9_-]{11}', 'vimeo': r'[0-9]+'}.get(video['provider'])
         if not pattern or not re.fullmatch(pattern, video['id']):
@@ -102,7 +104,7 @@ document = '''<!doctype html>
 <html lang="en" data-portfolio-page="true">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Will Stauffer: environmental data science and AI for climate, carbon removal, water, and energy."><title>Will Stauffer | Environmental data science &amp; AI</title>
 <style>:root{color-scheme:light dark}body{margin:0;padding:24px;background:light-dark(#edece3,#182019)}@media(max-width:620px){body{padding:0}}</style></head><body>'''
-policy = "default-src 'none'; script-src " + ' '.join(script_hashes) + "; style-src 'unsafe-inline'; img-src 'self' data:; frame-src https://www.youtube.com https://player.vimeo.com; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"
+policy = "default-src 'none'; script-src " + ' '.join(script_hashes) + "; style-src 'unsafe-inline'; img-src 'self' data:; frame-src 'self' https://www.youtube.com https://player.vimeo.com; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'"
 document = document.replace('<head>', '<head><meta http-equiv="Content-Security-Policy" content="' + policy + '"><meta name="referrer" content="strict-origin-when-cross-origin">')
 output.write_text(document + text + '\n</body></html>')
 print('Created globe page and cacheable assets:', output.stat().st_size, 'HTML bytes')

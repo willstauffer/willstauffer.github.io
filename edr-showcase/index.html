@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.dataset.embed='true';</script>
 <style>
 /* Standalone interactive figure. */
 :root{
@@ -97,6 +98,18 @@ button{font:inherit}
 body{background:var(--hero)}
 .hero{min-height:100vh}
 @media(max-width:900px){.galaxy-shell{grid-template-columns:1fr}.galaxy{max-height:none}}
+html[data-embed] .hero{min-height:0;padding:16px 0;}
+html[data-embed] .wrap{padding:0 12px;}
+html[data-embed] .hero .kicker,html[data-embed] .hero h1,html[data-embed] .hero .lede{display:none;}
+html[data-embed] .galaxy-shell{grid-template-columns:1fr;gap:18px;margin-top:0;}
+html[data-embed] .galaxy{max-height:none;border:0;}
+html[data-embed] .panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 10px;}
+html[data-embed] .panel>div:nth-child(-n+2),html[data-embed] .legend-h{grid-column:1/-1;}
+html[data-embed] .stat .v{font-size:clamp(17px,5.8vw,27px);overflow-wrap:anywhere;}
+html[data-embed] .stat .l{font-size:11px;line-height:1.45;}
+html[data-embed] .synthetic{font-size:11px;line-height:1.55;margin-bottom:0;}
+html[data-embed] .seg button{font-size:12px;padding:7px;min-height:44px;}
+html[data-embed] .yearrow input{min-width:0;}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -285,6 +298,15 @@ playBtn.addEventListener("click",function(){
 
 
 layout(); recompute();
+if(document.documentElement.dataset.embed==='true'&&window.parent!==window){
+  var lastHeight=0;
+  function reportHeight(){
+    var height=Math.ceil(document.querySelector('.hero').getBoundingClientRect().height);
+    if(height!==lastHeight){lastHeight=height;window.parent.postMessage({type:'edr-showcase:resize',height:height},window.location.origin);}
+  }
+  new ResizeObserver(reportHeight).observe(document.querySelector('.hero'));
+  reportHeight();
+}
 var resizeTimer=null; window.addEventListener("resize",function(){clearTimeout(resizeTimer); resizeTimer=setTimeout(layout,120);});
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layout);
 })();</script>

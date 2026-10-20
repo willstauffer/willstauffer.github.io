@@ -39,6 +39,15 @@
     const result=window.openai?.setWidgetState?.({modelContent:{project:selected.id,location:selected.location},privateContent:{rotation:center,zoom}});
     result?.catch?.(()=>{});
   }
+  const interactive=root.querySelector('.project-interactive');
+  window.addEventListener('message',event=>{
+    const frame=interactive.querySelector('iframe');
+    if(!frame||event.origin!==window.location.origin||event.source!==frame.contentWindow)return;
+    const message=event.data;
+    if(message?.type==='edr-showcase:resize'&&Number.isFinite(message.height)&&message.height>=200&&message.height<=3000){
+      frame.style.height=Math.ceil(message.height)+'px';
+    }
+  });
   function updateCard(){
     root.querySelector('.project-date').textContent=selected.date;
     for(const [selector,key]of [['.project-location','location'],['.project-region','region'],['.project-category','category'],['.project-title','title'],['.project-description','description'],['.project-status','status']])root.querySelector(selector).textContent=selected[key];
@@ -64,6 +73,18 @@
         frame.title=selected.title+' video player';frame.loading='lazy';frame.referrerPolicy='strict-origin-when-cross-origin';
         frame.allow='autoplay; encrypted-media; fullscreen; picture-in-picture';frame.allowFullscreen=true;
         video.append(frame);
+      }
+    }
+    if(interactive.dataset.project!==selected.id){
+      interactive.replaceChildren();interactive.dataset.project=selected.id;
+      interactive.hidden=!(standalone&&selected.interactive);
+      if(!interactive.hidden){
+        const heading=document.createElement('h3');heading.textContent='Explore climate scenarios';
+        const intro=document.createElement('p');intro.textContent='An interactive illustration using synthetic companies. Choose a scenario and move through the years.';
+        const frame=document.createElement('iframe');frame.src=selected.interactive;
+        frame.title='Interactive climate scenario explorer';frame.referrerPolicy='strict-origin-when-cross-origin';
+        const expand=document.createElement('a');expand.href='/edr-showcase/';expand.textContent='Open full-size explorer ↗';expand.target='_blank';expand.rel='noopener noreferrer';
+        interactive.append(heading,intro,frame,expand);
       }
     }
     const gallery=root.querySelector('.project-gallery');gallery.replaceChildren();gallery.hidden=!selected.media.length;
