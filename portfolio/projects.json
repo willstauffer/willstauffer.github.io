@@ -90,30 +90,23 @@
     "date": "2024–25"
   },
   {
-    "id": "un",
-    "area": "usa",
-    "location": "UN headquarters",
-    "region": "New York City",
-    "coords": [
-      -73.9675,
-      40.749
-    ],
-    "category": "Climate scenarios + reporting",
-    "title": "A pension fund meets climate risk",
-    "description": "Climate scenario analysis and figures for the UN Joint Staff Pension Fund’s first TCFD report, through Entelligent.",
-    "status": "Published report · 2021 reporting year",
-    "media": [
-      "divestment",
-      "scenarios",
-      "enroads"
-    ],
+    "id": "cdr",
+    "area": "global",
+    "location": "Global",
+    "region": "CDR.fyi",
+    "coords": null,
+    "category": "Short project + carbon removal",
+    "title": "Exploring carbon-removal deployment",
+    "description": "A brief forecasting project with CDR.fyi exploring durable carbon-removal deployment against climate targets. An introduction to working in carbon removal.",
+    "status": "Short exploratory project · 2024",
+    "media": [],
     "links": [
       {
-        "label": "Read the TCFD report",
-        "url": "https://www.unjspf.org/wp-content/uploads/2022/06/UNJSPF_Report_March8.pdf"
+        "label": "Explore CDR.fyi",
+        "url": "https://www.cdr.fyi/"
       }
     ],
-    "date": "2021"
+    "date": "2024"
   },
   {
     "id": "scores",
@@ -191,23 +184,30 @@
     }
   },
   {
-    "id": "cdr",
-    "area": "global",
-    "location": "Global",
-    "region": "CDR.fyi",
-    "coords": null,
-    "category": "Short project + carbon removal",
-    "title": "Exploring carbon-removal deployment",
-    "description": "A brief forecasting project with CDR.fyi exploring durable carbon-removal deployment against climate targets. An introduction to working in carbon removal.",
-    "status": "Short exploratory project · 2024",
-    "media": [],
+    "id": "un",
+    "area": "usa",
+    "location": "UN headquarters",
+    "region": "New York City",
+    "coords": [
+      -73.9675,
+      40.749
+    ],
+    "category": "Climate scenarios + reporting",
+    "title": "A pension fund meets climate risk",
+    "description": "Climate scenario analysis and figures for the UN Joint Staff Pension Fund’s first TCFD report, through Entelligent.",
+    "status": "Published report · 2021 reporting year",
+    "media": [
+      "divestment",
+      "scenarios",
+      "enroads"
+    ],
     "links": [
       {
-        "label": "Explore CDR.fyi",
-        "url": "https://www.cdr.fyi/"
+        "label": "Read the TCFD report",
+        "url": "https://www.unjspf.org/wp-content/uploads/2022/06/UNJSPF_Report_March8.pdf"
       }
     ],
-    "date": "2024"
+    "date": "2021"
   },
   {
     "id": "idaho",
@@ -263,72 +263,6 @@
     "links": []
   },
   {
-    "id": "taylor",
-    "area": "usa",
-    "location": "Big Creek, Idaho",
-    "region": "Taylor Wilderness Research Station",
-    "coords": [
-      -114.8517,
-      45.1019
-    ],
-    "category": "Field research + watershed ecology",
-    "title": "Fire, wood, and a wilderness river",
-    "description": "Undergraduate field research on how fire intensity affects the distribution of large woody debris in Idaho’s Big Creek watershed.",
-    "status": "Taylor Wilderness Research Station · 2010",
-    "date": "2010",
-    "media": [],
-    "links": [
-      {
-        "label": "Research listing in the 2010 annual report",
-        "url": "https://objects.lib.uidaho.edu/taylorarchive/b3-TWRS_PositionReports-076.pdf#page=10"
-      }
-    ]
-  },
-  {
-    "id": "plenty",
-    "area": "usa",
-    "location": "San Francisco Bay Area",
-    "region": "Plenty",
-    "coords": [
-      -122.4194,
-      37.7749
-    ],
-    "category": "Agtech + visual storytelling",
-    "title": "Plenty",
-    "description": "Visual storytelling for Plenty, an indoor farming company connecting food, agriculture, and technology.",
-    "status": "Agtech storytelling",
-    "date": "2018",
-    "media": [],
-    "links": [
-      {
-        "label": "Explore Plenty",
-        "url": "https://www.plenty.ag/"
-      }
-    ]
-  },
-  {
-    "id": "oru",
-    "area": "usa",
-    "location": "San Francisco Bay Area",
-    "region": "Oru Kayak",
-    "coords": [
-      -122.4194,
-      37.7749
-    ],
-    "category": "Film + product launch",
-    "title": "Oru Kayak",
-    "description": "Created the film and helped with marketing for Oru Kayak’s $1M+ Kickstarter campaign.",
-    "status": "Film production + campaign marketing",
-    "date": "2017–2020",
-    "media": [],
-    "links": [
-      {
-        "label": "Explore Oru Kayak",
-        "url": "https://www.orukayak.com/"
-      }
-    ]
-  },
-  {
     "id": "colombia",
     "area": "south-america",
     "location": "Colombia",
@@ -353,6 +287,64 @@
       "id": "pGxXibheOpw"
     },
     "date": "2020"
+  },
+  {
+    "id": "oru",
+    "area": "usa",
+    "location": "San Francisco Bay Area",
+    "region": "Oru Kayak",
+    "coords": [
+      -122.4194,
+      37.7749
+    ],
+    "category": "Film + product launch",
+    "title": "Oru Kayak",
+    "description": "Created the film and helped with marketing for Oru Kayak’s $1M+ Kickstarter campaign.",
+    "status": "Film production + campaign marketing",
+    "date": "2017–2020",
+    "media": [],
+    "links": [
+      {
+        "label": "Explore Oru Kayak",
+        "url": "https://www.orukayak.com/"
+      }
+    ]
+  },
+  {
+    "id": "vr",
+    "area": "asia",
+    "location": "China",
+    "region": "Google · River conservation",
+    "coords": null,
+    "category": "Immersive media + conservation",
+    "title": "A river, in 360°",
+    "description": "Created virtual-reality content for Google about river conservation in China.",
+    "status": "WSN Media · 2013–2020",
+    "date": "2013–20",
+    "media": [],
+    "links": []
+  },
+  {
+    "id": "plenty",
+    "area": "usa",
+    "location": "San Francisco Bay Area",
+    "region": "Plenty",
+    "coords": [
+      -122.4194,
+      37.7749
+    ],
+    "category": "Agtech + visual storytelling",
+    "title": "Plenty",
+    "description": "Visual storytelling for Plenty, an indoor farming company connecting food, agriculture, and technology.",
+    "status": "Agtech storytelling",
+    "date": "2018",
+    "media": [],
+    "links": [
+      {
+        "label": "Explore Plenty",
+        "url": "https://www.plenty.ag/"
+      }
+    ]
   },
   {
     "id": "georgia",
@@ -407,28 +399,6 @@
     "date": "2016"
   },
   {
-    "id": "dulong",
-    "area": "asia",
-    "location": "Dulong River",
-    "region": "Northwest Yunnan, China",
-    "coords": [
-      98.3378,
-      27.8942
-    ],
-    "category": "Film + river expedition",
-    "title": "Dulong River expedition",
-    "description": "Paddling and filming a kayak expedition on the Dulong River, as new roads changed access to one of Yunnan’s remote valleys.",
-    "status": "Expedition · 2015 · GoKunming interview · 2017",
-    "date": "2015",
-    "media": [],
-    "links": [
-      {
-        "label": "Film & interview on GoKunming",
-        "url": "https://www.gokunming.com/en/blog/item/4017/video-and-interview-first-descent-of-chinas-remote-dulong-river"
-      }
-    ]
-  },
-  {
     "id": "laos",
     "area": "asia",
     "location": "Laos",
@@ -458,18 +428,26 @@
     "date": "2015–16"
   },
   {
-    "id": "vr",
+    "id": "dulong",
     "area": "asia",
-    "location": "China",
-    "region": "Google · River conservation",
-    "coords": null,
-    "category": "Immersive media + conservation",
-    "title": "A river, in 360°",
-    "description": "Created virtual-reality content for Google about river conservation in China.",
-    "status": "WSN Media · 2013–2020",
-    "date": "2013–20",
+    "location": "Dulong River",
+    "region": "Northwest Yunnan, China",
+    "coords": [
+      98.3378,
+      27.8942
+    ],
+    "category": "Film + river expedition",
+    "title": "Dulong River expedition",
+    "description": "Paddling and filming a kayak expedition on the Dulong River, as new roads changed access to one of Yunnan’s remote valleys.",
+    "status": "Expedition · 2015 · GoKunming interview · 2017",
+    "date": "2015",
     "media": [],
-    "links": []
+    "links": [
+      {
+        "label": "Film & interview on GoKunming",
+        "url": "https://www.gokunming.com/en/blog/item/4017/video-and-interview-first-descent-of-chinas-remote-dulong-river"
+      }
+    ]
   },
   {
     "id": "colorado",
@@ -500,5 +478,27 @@
       "id": "O8CXQkXlYg8"
     },
     "date": "2011–12"
+  },
+  {
+    "id": "taylor",
+    "area": "usa",
+    "location": "Big Creek, Idaho",
+    "region": "Taylor Wilderness Research Station",
+    "coords": [
+      -114.8517,
+      45.1019
+    ],
+    "category": "Field research + watershed ecology",
+    "title": "Fire, wood, and a wilderness river",
+    "description": "Undergraduate field research on how fire intensity affects the distribution of large woody debris in Idaho’s Big Creek watershed.",
+    "status": "Taylor Wilderness Research Station · 2010",
+    "date": "2010",
+    "media": [],
+    "links": [
+      {
+        "label": "Research listing in the 2010 annual report",
+        "url": "https://objects.lib.uidaho.edu/taylorarchive/b3-TWRS_PositionReports-076.pdf#page=10"
+      }
+    ]
   }
 ]
