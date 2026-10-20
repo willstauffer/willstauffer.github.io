@@ -48,6 +48,21 @@
       frame.style.height=Math.ceil(message.height)+'px';
     }
   });
+  const copyProjectLink=root.querySelector('.project-permalink');
+  const projectLinkStatus=root.querySelector('.project-link-status');
+  copyProjectLink.addEventListener('click',async()=>{
+    const projectId=selected.id;
+    const url='https://www.willstauffer.com/#project='+encodeURIComponent(projectId);
+    let message;
+    try{
+      await navigator.clipboard.writeText(url);
+      message='Link copied.';
+    }catch{
+      message='Select and copy this link: '+url;
+    }
+    if(selected.id!==projectId)return;
+    projectLinkStatus.textContent=message;projectLinkStatus.hidden=false;
+  });
   function updateCard(){
     root.querySelector('.project-date').textContent=selected.date;
     for(const [selector,key]of [['.project-location','location'],['.project-region','region'],['.project-category','category'],['.project-title','title'],['.project-description','description'],['.project-status','status']])root.querySelector(selector).textContent=selected[key];
@@ -55,7 +70,7 @@
     root.querySelector('.ai-detail').hidden=selected.detail!=='ai';
     root.dataset.project=selected.id;
 
-    root.querySelector('.project-permalink').href='#project='+selected.id;
+    projectLinkStatus.hidden=true;projectLinkStatus.textContent='';
     root.querySelectorAll('.work-shortcuts a').forEach(a=>{if(a.hash==='#project='+selected.id)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
     const facts=root.querySelector('.project-facts');facts.replaceChildren();facts.hidden=!selected.facts?.length;
     for(const [label,text] of selected.facts||[]){const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=text;row.append(dt,dd);facts.append(row);}
